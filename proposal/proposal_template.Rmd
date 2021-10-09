@@ -29,10 +29,16 @@ fedesoriano. (September 2021). Heart Failure Prediction Dataset. Retrieved 10/09
 (Please use `glimpse` for your data, uploaded into the data folder, here.)
 
 ```{r glimpse}
-  glimpse(heart)
+glimpse(heart)
 ```
 
 # Data Analysis Plan
-
 (Specify the outcome (response, Y) and predictor (explanatory, X) variables you will use to answer your question, as well as the comparison groups you will use, if applicable. You may include very preliminary exploratory data analysis, including some summary statistics and visualizations, along with some explanation on how they help you learn more about your data. Note the statistical method(s) that you believe will be useful in answering your question(s). 
 What results from these specific statistical methods are needed to support your hypothesized answer?)
+
+When determining whether certain factors are associated with the type of angina experienced, the explanatory variables will be either cholesterol levels, resting blood pressure, or whether the angina was exercise induced. The association of each variable with the type of angina will be analyzed separately. The response variable will be the type of chest pain experienced by the patient. 
+
+Then, for the second part of the study, the explanatory variable will be the type of chest pain experienced, and the response variable will be whether the patient had heart disease. This will allow for an analysis of whether one type of chest pain is more associated with heart disease than others. Through combining conclusions made from the first part of the study with conclusions made in the second part of the study, we could see if cholesterol, resting blood pressure, or whether or not the angina was exercise induced, can be used as a predictor for a patient having heart disease. 
+
+A one-way ANOVA can be used to determine whether there are any statistically significant differences between the means of multiple samples. This can be applied to this study to determine if means of one of the explanatory variables are significantly different between each type of chest pain. This will allow us to see if cholesterol levels or resting blood pressure might be associated more with a certain type of chest pain. 
+
