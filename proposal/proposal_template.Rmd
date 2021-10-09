@@ -13,6 +13,7 @@ library(tidyverse)
 
 # Load Data
 ```{r load-data, message = FALSE}
+heart <- readr::read_csv("heart.csv")
 ```
 
 # Introduction and Data, including Research Questions
@@ -28,7 +29,6 @@ fedesoriano. (September 2021). Heart Failure Prediction Dataset. Retrieved 10/09
 (Please use `glimpse` for your data, uploaded into the data folder, here.)
 
 ```{r glimpse}
-heart %>%
   glimpse(heart)
 ```
 
