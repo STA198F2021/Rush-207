@@ -20,6 +20,11 @@ library(tidyverse)
 
 (The introduction should introduce your general research question and your data (where it came from, how it was collected, what are the cases, what are the variables, etc.). Your research questions should be clearly specified. The motivation for your research question should be clear, with citations to relevant literature as appropriate.)
 
+For this data visualiztion, we will be analyzing chest pain types and their relation to other physiological factors. We will be looking for an association between factors such as blood pressure, cholesterol, and exercise and the type of chest pain a patient experiences. We also plan on using this dataset to look for a possible association between chest pain type and whether that patient experiences heart disease. The dataset we have chosen is the Heart Failure Prediction Dataset. We retrieved it from Kaggle, and it is a compiled dataset from five sets with common variables. These sources are the Hungarian Institute of Cardiology. Budapest, University Hospital, Zurich, Switzerland, University Hospital, Basel, Switzerland, the V.A. Medical Center, Long Beach, and the Cleveland Clinic Foundation. The variables of interest include the age of the patient, gender, their resting blood pressure (mm Hg), their serum cholesterol (mm/d), and whether they have heart disease. We will also be using the categorical variables compiled on the chest pain type (typical angina, atypical angina, non-anginal pain, or asymptomatic), and whether the angina was exercise induced (yes or no).
+
+Research Question: Can factors such as blood pressure, cholesterol, and exercise affect the chest pain type a patient experiences? Is a certain chest pain type more associated with heart disease?
+
+fedesoriano. (September 2021). Heart Failure Prediction Dataset. Retrieved 10/09/2021 from https://www.kaggle.com/fedesoriano/heart-failure-prediction.
 # Glimpse
 
 (Please use `glimpse` for your data, uploaded into the data folder, here.)
