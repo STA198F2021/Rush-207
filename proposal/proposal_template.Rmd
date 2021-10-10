@@ -27,6 +27,7 @@ fedesoriano. (September 2021). Heart Failure Prediction Dataset. Retrieved 10/09
 
 # Glimpse
 (Please use `glimpse` for your data, uploaded into the data folder, here.)
+
 ```{r glimpse}
 glimpse(heart)
 ```
