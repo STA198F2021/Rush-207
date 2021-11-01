@@ -34,3 +34,23 @@ mean_cholesterol %>%
          y = "Mean Cholesterol Levels (mm/dL)")
 ```
 
+```{r cholesterol}
+heart_grouped <- heart %>%
+  mutate(chol_level = cut(Cholesterol,
+                          breaks = c(-Inf, 120, 200, 239, Inf),
+                          labels = c("Low", "Normal", "Intermediate", "High"),
+                          right=FALSE))
+```
+```{r bloodpressure}
+heart_grouped <- heart_grouped %>%
+  mutate(press_level = cut(RestingBP,
+                          breaks = c(-Inf, 120, 130, 140, 180, Inf),
+                          labels = c("Normal", "Elevated", "Hypertension 1", "Hypertension 2", "Hypertensive Crisis"),
+                          right=FALSE))
+```
+```{r factor}
+heart_grouped <- heart_grouped %>%
+  mutate(Sex, sex_factor=ifelse(Sex=="M", 0,1)) %>%
+  mutate(ExerciseAngina, exer_factor=ifelse(ExerciseAngina=="N", 0,1))
+```
+
