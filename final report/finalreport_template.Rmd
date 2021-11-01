@@ -9,6 +9,8 @@ output: pdf_document
 # Load Packages
 ```{r load-packages}
 library(tidyverse) 
+library(kableExtra)
+library(janitor)
 
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ``` 
@@ -61,15 +63,9 @@ heart_grouped <- heart_grouped %>%
   mutate(ExerciseAngina, exer_factor=ifelse(ExerciseAngina=="N", 0,1))
 ```
 
-```{r count-cholesterol}
-chol_grouped <- heart_grouped %>%
-  group_by(ChestPainType, chol_level)%>%
-  summarize(count = n())
-```
-
-```{r count-RBP}
-RBP_grouped <- heart_grouped %>%
-  group_by(ChestPainType, press_level) %>%
+```{r count-sex}
+sex_grouped <- heart_grouped %>%
+  group_by(ChestPainType, sex_factor) %>%
   summarize(count = n())
 ```
 
@@ -79,9 +75,15 @@ exer_grouped <- heart_grouped %>%
   summarize(count = n())
 ```
 
-```{r count-sex}
-sex_grouped <- heart_grouped %>%
-  group_by(ChestPainType, sex_factor) %>%
+```{r count-RBP}
+RBP_grouped <- heart_grouped %>%
+  group_by(ChestPainType, press_level) %>%
+  summarize(count = n())
+```
+
+```{r count-cholesterol}
+chol_grouped <- heart_grouped %>%
+  group_by(ChestPainType, chol_level)%>%
   summarize(count = n())
 ```
 
@@ -95,6 +97,17 @@ sex_grouped %>%
        x = "Chest Pain Type",
        y = "Count",
        fill = "Sex")
+```
+
+```{r exer-visuals}
+exer_grouped %>%
+  mutate(exer_factor, exer_cat=ifelse(exer_factor==0, "No","Yes")) %>%
+  ggplot()+
+  geom_col(aes(x = ChestPainType, y = count, fill = as.factor(exer_cat)), position = "fill") +
+  labs(title = "Frequency of Chest Pain Type by Exercise Level",
+       x = "Chest Pain Type",
+       y = "Count",
+       fill = "Exercise Induced Angina Status")
 ```
 
 ```{r BP-visuals}
@@ -117,13 +130,19 @@ chol_grouped %>%
        fill = "Cholesterol Level")
 ```
 
-```{r exer-visuals}
-exer_grouped %>%
-  mutate(exer_factor, exer_cat=ifelse(exer_factor==0, "No","Yes")) %>%
-  ggplot()+
-  geom_col(aes(x = ChestPainType, y = count, fill = as.factor(exer_cat)), position = "fill") +
-  labs(title = "Frequency of Chest Pain Type by Exercise Level",
-       x = "Chest Pain Type",
-       y = "Count",
-       fill = "Exercise Induced Angina Status")
+# Chi Square
+```{r sex-table}
+sex_table <- heart_grouped %>%
+  tabyl(ChestPainType, Sex) 
+
+exer_table <- heart_grouped %>%
+  tabyl(ChestPainType, ExerciseAngina)
+
+RBP_table <- heart_grouped %>%
+  tabyl(ChestPainType, press_level)
+
+chol_table <- heart_grouped %>%
+  tabyl(ChestPainType, chol_level)
 ```
+
+
