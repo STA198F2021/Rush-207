@@ -7,15 +7,18 @@ output: pdf_document
 ---
 
 # Load Packages
-```{r load-packages, message = FALSE, warning = FALSE}
+```{r load-packages}
 library(tidyverse) 
+
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ``` 
 
 # Load Data
-```{r load-data, message = FALSE}
+```{r load-data}
 heart <- readr::read_csv("heart.csv")
 ```
 
+# Data Analysis Plan
 ```{r mean-chol}
 mean_cholesterol <- heart %>%
   group_by(ChestPainType) %>%
@@ -34,6 +37,7 @@ mean_cholesterol %>%
          y = "Mean Cholesterol Levels (mm/dL)")
 ```
 
+# Grouping Variables
 ```{r cholesterol}
 heart_grouped <- heart %>%
   mutate(chol_level = cut(Cholesterol,
@@ -41,6 +45,7 @@ heart_grouped <- heart %>%
                           labels = c("Low", "Normal", "Intermediate", "High"),
                           right=FALSE))
 ```
+
 ```{r bloodpressure}
 heart_grouped <- heart_grouped %>%
   mutate(press_level = cut(RestingBP,
@@ -48,6 +53,7 @@ heart_grouped <- heart_grouped %>%
                           labels = c("Normal", "Elevated", "Hypertension 1", "Hypertension 2", "Hypertensive Crisis"),
                           right=FALSE))
 ```
+
 ```{r factor}
 heart_grouped <- heart_grouped %>%
   mutate(Sex, sex_factor=ifelse(Sex=="M", 0,1)) %>%
