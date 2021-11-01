@@ -53,4 +53,25 @@ heart_grouped <- heart_grouped %>%
   mutate(Sex, sex_factor=ifelse(Sex=="M", 0,1)) %>%
   mutate(ExerciseAngina, exer_factor=ifelse(ExerciseAngina=="N", 0,1))
 ```
+```{r count-cholesterol}
+chol_grouped <- heart_grouped %>%
+  group_by(ChestPainType, chol_level)%>%
+  summarize(count = n())
+```
+```{r count-RBP}
+RBP_grouped <- heart_grouped %>%
+  group_by(ChestPainType, press_level) %>%
+  summarize(count = n())
+```
+```{r count-ex}
+exer_grouped <- heart_grouped %>%
+  group_by(ChestPainType, exer_factor) %>%
+  summarize(count = n())
+```
+```{r count-sex}
+sex_grouped <- heart_grouped %>%
+  group_by(ChestPainType, sex_factor) %>%
+  summarize(count = n())
+
+```
 
