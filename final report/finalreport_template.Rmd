@@ -85,3 +85,45 @@ sex_grouped <- heart_grouped %>%
   summarize(count = n())
 ```
 
+# Visualizing Data
+```{r sex-visuals}
+sex_grouped %>%
+  mutate(sex_factor, sex_name=ifelse(sex_factor==0, "Male","Female")) %>%
+  ggplot()+
+  geom_col(aes(x = ChestPainType, y = count, fill = as.factor(sex_name)), position = "fill") +
+  labs(title = "Frequency of Chest Pain Type by Sex",
+       x = "Chest Pain Type",
+       y = "Count",
+       fill = "Sex")
+```
+
+```{r BP-visuals}
+RBP_grouped %>%
+  ggplot()+
+  geom_col(aes(x = ChestPainType, y = count, fill = as.factor(press_level)), position = "fill") +
+  labs(title = "Frequency of Chest Pain Type by Blood Pressure Level",
+       x = "Chest Pain Type",
+       y = "Count",
+       fill = "Blood Pressure Level")
+```
+
+```{r chol-visuals}
+chol_grouped %>%
+  ggplot()+
+  geom_col(aes(x = ChestPainType, y = count, fill = as.factor(chol_level)), position = "fill") +
+  labs(title = "Frequency of Chest Pain Type by Cholesterol Level",
+       x = "Chest Pain Type",
+       y = "Count",
+       fill = "Cholesterol Level")
+```
+
+```{r exer-visuals}
+exer_grouped %>%
+  mutate(exer_factor, exer_cat=ifelse(exer_factor==0, "No","Yes")) %>%
+  ggplot()+
+  geom_col(aes(x = ChestPainType, y = count, fill = as.factor(exer_cat)), position = "fill") +
+  labs(title = "Frequency of Chest Pain Type by Exercise Level",
+       x = "Chest Pain Type",
+       y = "Count",
+       fill = "Exercise Induced Angina Status")
+```
