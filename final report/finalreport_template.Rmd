@@ -129,7 +129,7 @@ chol_grouped %>%
        fill = "Cholesterol Level")
 ```
 
-# Chi Square
+# Statistical Tests
 ```{r sex-table}
 sex_table <- heart_grouped %>%
   tabyl(Sex, ChestPainType)
@@ -144,25 +144,84 @@ chol_table <- heart_grouped %>%
   tabyl(chol_level, ChestPainType)
 ```
 
-```{r fisher}
-fisher.test(sex_table)
-
-fisher.test(exer_table)
+```{r chisq}
+chisq.test(sex_table)
+chisq.test(exer_table)
 ```
+
 ```{r chi-squared}
 chisq.test(chol_table)
-
 chisq.test(RBP_table)
+```
 
-```
 ```{r step down cholesterol}
-chol_step <- heart_grouped %>%
-  filter(chol_level=="Low" | chol_level=="Normal")
+heart_grouped2 <- heart_grouped %>%
+  filter(ChestPainType %in% c("ATA", "ASY")) 
+
+chol_step <- heart_grouped2 %>%
+  tabyl(chol_level, ChestPainType)
+chisq.test(chol_step)
+
+heart_grouped3 <- heart_grouped %>%
+  filter(ChestPainType %in% c("ASY", "NAP")) 
+
+chol_step2 <- heart_grouped3 %>%
+  tabyl(chol_level, ChestPainType)
+chisq.test(chol_step2)
+
+heart_grouped4 <- heart_grouped %>%
+  filter(ChestPainType %in% c("TA", "ASY")) 
+
+chol_step3 <- heart_grouped4 %>% ##NOT SIGNIFICANT
+  tabyl(chol_level, ChestPainType)
+chisq.test(chol_step3)
+
+heart_grouped5 <- heart_grouped %>%
+  filter(ChestPainType %in% c("ATA", "NAP")) 
+
+chol_step4 <- heart_grouped5 %>%
+  tabyl(chol_level, ChestPainType)
+chisq.test(chol_step4)
+
+heart_grouped6 <- heart_grouped %>%
+  filter(ChestPainType %in% c("ATA", "TA")) 
+
+chol_step5 <- heart_grouped6 %>% #NOT SIGNIFICANT; used fisher bc count was <10 for low:TA
+  tabyl(chol_level, ChestPainType)
+fisher.test(chol_step5)
+
+heart_grouped7 <- heart_grouped %>%
+  filter(ChestPainType %in% c("NAP", "TA")) 
+
+chol_step6 <- heart_grouped7 %>% #NOT SIGNIFICANT
+  tabyl(chol_level, ChestPainType)
+chisq.test(chol_step6)
 ```
-```{r step down chol test}
-#chol_table2 <- chol_step %>%
-  #tabyl(chol_level, ChestPainType)
-  
+
+```{r step down sex}
+sex_step <- heart_grouped2 %>%
+  tabyl(Sex, ChestPainType)
+fisher.test(sex_step)
+
+sex_step2 <- heart_grouped3 %>%
+  tabyl(Sex, ChestPainType)
+fisher.test(sex_step2)
+
+sex_step3 <- heart_grouped4 %>% #NOT SIGNIFICANT
+  tabyl(Sex, ChestPainType)
+fisher.test(sex_step3)
+
+sex_step4 <- heart_grouped5 %>% #NOT SIGNIFICANT
+  tabyl(Sex, ChestPainType)
+fisher.test(sex_step4)
+
+sex_step5 <- heart_grouped6 %>% #NOT SIGNIFICANT
+  tabyl(Sex, ChestPainType)
+fisher.test(sex_step5)
+
+sex_step6 <- heart_grouped7 %>% #NOT SIGNIFICANT
+  tabyl(Sex, ChestPainType)
+fisher.test(sex_step6)
 ```
 
 
