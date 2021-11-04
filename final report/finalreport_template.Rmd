@@ -51,8 +51,8 @@ heart_grouped <- heart %>%
 ```{r bloodpressure}
 heart_grouped <- heart_grouped %>%
   mutate(press_level = cut(RestingBP,
-                          breaks = c(-Inf, 120, 130, 140, 180, Inf),
-                          labels = c("Normal", "Elevated", "Hypertension 1", "Hypertension 2", "Hypertensive Crisis"),
+                          breaks = c(-Inf, 120, 130, 140, Inf),
+                          labels = c("Normal", "Elevated", "Hypertension 1", "Hypertension 2"),
                           right=FALSE))
 ```
 
@@ -133,16 +133,29 @@ chol_grouped %>%
 # Chi Square
 ```{r sex-table}
 sex_table <- heart_grouped %>%
-  tabyl(ChestPainType, Sex) 
+  tabyl(Sex, ChestPainType)
 
 exer_table <- heart_grouped %>%
-  tabyl(ChestPainType, ExerciseAngina)
+  tabyl(ExerciseAngina, ChestPainType)
 
 RBP_table <- heart_grouped %>%
-  tabyl(ChestPainType, press_level)
+  tabyl(press_level, ChestPainType)
 
 chol_table <- heart_grouped %>%
-  tabyl(ChestPainType, chol_level)
+  tabyl(chol_level, ChestPainType)
 ```
+
+```{r fisher}
+fisher.test(sex_table)
+
+fisher.test(exer_table)
+```
+```{r chi-squared}
+chisq.test(chol_table)
+
+chisq.test(RBP_table)
+
+```
+
 
 
