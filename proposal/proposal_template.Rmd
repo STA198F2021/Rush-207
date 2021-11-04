@@ -59,7 +59,7 @@ mean_rbp <- heart %>%
 
 ```
 ```{r count-excersize-ang}
-count_excersize <- heart%>%
+count_exercise <- heart%>%
   group_by(ChestPainType) %>%
   filter(ExerciseAngina == "Y") %>%
   summarize(n()) %>%
