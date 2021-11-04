@@ -250,6 +250,31 @@ exer_step6 <- heart_grouped7 %>% #NOT SIGNIFICANT
 fisher.test(exer_step6)
 ```
 
+```{r step-down-exercise}
+RBP_step <- heart_grouped2 %>%
+  tabyl(press_level, ChestPainType)
+fisher.test(RBP_step)
+
+RBP_step2 <- heart_grouped3 %>% #NOT SIG
+  tabyl(press_level, ChestPainType)
+fisher.test(RBP_step2)
+
+RBP_step3 <- heart_grouped4 %>% #NOT SIG
+  tabyl(press_level, ChestPainType)
+fisher.test(RBP_step3)
+
+RBP_step4 <- heart_grouped5 %>% 
+  tabyl(press_level, ChestPainType)
+fisher.test(RBP_step4)
+
+RBP_step5 <- heart_grouped6 %>% 
+  tabyl(press_level, ChestPainType)
+fisher.test(RBP_step5)
+
+RBP_step6 <- heart_grouped7 %>% #NOT SIG
+  tabyl(press_level, ChestPainType)
+fisher.test(RBP_step6)
+```
 
 
 
