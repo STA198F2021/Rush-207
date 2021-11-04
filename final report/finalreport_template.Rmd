@@ -154,7 +154,7 @@ chisq.test(chol_table)
 chisq.test(RBP_table)
 ```
 
-```{r step down cholesterol}
+```{r step-down-cholesterol}
 heart_grouped2 <- heart_grouped %>%
   filter(ChestPainType %in% c("ATA", "ASY")) 
 
@@ -198,7 +198,7 @@ chol_step6 <- heart_grouped7 %>% #NOT SIGNIFICANT
 chisq.test(chol_step6)
 ```
 
-```{r step down sex}
+```{r step-down-sex}
 sex_step <- heart_grouped2 %>%
   tabyl(Sex, ChestPainType)
 fisher.test(sex_step)
@@ -222,6 +222,32 @@ fisher.test(sex_step5)
 sex_step6 <- heart_grouped7 %>% #NOT SIGNIFICANT
   tabyl(Sex, ChestPainType)
 fisher.test(sex_step6)
+```
+
+```{r step-down-exercise}
+exer_step <- heart_grouped2 %>%
+  tabyl(ExerciseAngina, ChestPainType)
+fisher.test(exer_step)
+
+exer_step2 <- heart_grouped3 %>%
+  tabyl(ExerciseAngina, ChestPainType)
+fisher.test(exer_step2)
+
+exer_step3 <- heart_grouped4 %>% 
+  tabyl(ExerciseAngina, ChestPainType)
+fisher.test(exer_step3)
+
+exer_step4 <- heart_grouped5 %>% 
+  tabyl(ExerciseAngina, ChestPainType)
+fisher.test(exer_step4)
+
+exer_step5 <- heart_grouped6 %>% #NOT SIGNIFICANT
+  tabyl(ExerciseAngina, ChestPainType)
+fisher.test(exer_step5)
+
+exer_step6 <- heart_grouped7 %>% #NOT SIGNIFICANT
+  tabyl(ExerciseAngina, ChestPainType)
+fisher.test(exer_step6)
 ```
 
 
