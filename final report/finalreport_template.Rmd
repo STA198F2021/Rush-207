@@ -9,7 +9,6 @@ output: pdf_document
 # Load Packages
 ```{r load-packages}
 library(tidyverse) 
-library(kableExtra)
 library(janitor)
 
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
@@ -156,6 +155,17 @@ chisq.test(chol_table)
 chisq.test(RBP_table)
 
 ```
+```{r step down cholesterol}
+chol_step <- heart_grouped %>%
+  filter(chol_level=="Low" | chol_level=="Normal")
+```
+```{r step down chol test}
+#chol_table2 <- chol_step %>%
+  #tabyl(chol_level, ChestPainType)
+  
+```
+
+
 
 
 
