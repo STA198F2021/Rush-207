@@ -130,7 +130,7 @@ chol_grouped %>%
 ```
 
 # Statistical Tests
-```{r sex-table}
+```{r tables}
 sex_table <- heart_grouped %>%
   tabyl(Sex, ChestPainType)
 
@@ -142,6 +142,9 @@ RBP_table <- heart_grouped %>%
 
 chol_table <- heart_grouped %>%
   tabyl(chol_level, ChestPainType)
+
+disease_table <- heart_grouped %>%
+  tabyl(HeartDisease, ChestPainType)
 ```
 
 ```{r chisq}
@@ -152,6 +155,7 @@ chisq.test(exer_table)
 ```{r chi-squared}
 chisq.test(chol_table)
 chisq.test(RBP_table)
+chisq.test(disease_table)
 ```
 
 ```{r step-down-cholesterol}
@@ -275,16 +279,71 @@ RBP_step6 <- heart_grouped7 %>% #NOT SIG
   tabyl(press_level, ChestPainType)
 fisher.test(RBP_step6)
 ```
+```{r disease step down}
+disease_step <- heart_grouped2 %>%
+  tabyl(HeartDisease, ChestPainType)
+fisher.test(disease_step)
+
+disease_step2 <- heart_grouped3 %>%
+  tabyl(HeartDisease, ChestPainType)
+fisher.test(disease_step2)
+
+disease_step3 <- heart_grouped4 %>%
+  tabyl(HeartDisease, ChestPainType)
+fisher.test(disease_step3)
+
+disease_step4 <- heart_grouped5 %>%
+  tabyl(HeartDisease, ChestPainType)
+fisher.test(disease_step4)
+
+disease_step5 <- heart_grouped6 %>%
+  tabyl(HeartDisease, ChestPainType)
+fisher.test(disease_step5)
+
+disease_step6 <- heart_grouped7 %>%
+  tabyl(HeartDisease, ChestPainType)
+fisher.test(disease_step)
+```
 
 # Visualized Results
 
-```{r graph1}
-
-heart_grouped2 %>%
-  ggplot()+
+```{r graphsASY-TA}
+  ggplot(data = heart_grouped4)+
   geom_bar(mapping = aes(x = chol_level, fill = ChestPainType), position = "dodge")+
-  labs(title = "")
+  labs(title = "Type of Chest Pain By Cholesterol Level", x = "Cholesterol Level", y = "Count", fill = "Chest Pain Type")
 
+ggplot(data = heart_grouped4)+
+  geom_bar(mapping = aes(x = press_level, fill = ChestPainType), position = "dodge")+
+  labs(title = "Type of Chest Pain by Blood Pressure Level", x= "Blood Pressure Level", y = "Count", fill = "Chest Pain Type" )
+
+ggplot(data = heart_grouped4)+ #need to change x labels from 0-1 to male-female
+  geom_bar(mapping = aes(x = as.factor(sex_factor), fill = ChestPainType), position = "dodge")+
+  labs(title = "Type of Chest Pain by Sex", x= "Sex", y = "Count", fill = "Chest Pain Type")
+
+ggplot(data = heart_grouped4)+
+geom_bar(mapping = aes(x = as.factor(exer_factor), fill = ChestPainType), position = "dodge")+
+  labs(title = "Type of Chest Pain By Whether the Angina Was Exercise Induced", x = "Whether Angina was Exercise Induced", y = "Count", fill = "Chest Pain Type")
+```
+```{r graphsTA-ATA}
+ggplot(data = heart_grouped6)+
+  geom_bar(mapping = aes(x = chol_level, fill = ChestPainType), position = "dodge")+
+  labs(title = "Type of Chest Pain By Cholesterol Level", x = "Cholesterol Level", y = "Count", fill = "Chest Pain Type")
+
+ggplot(data = heart_grouped6)+
+  geom_bar(mapping = aes(x = press_level, fill = ChestPainType), position = "dodge")+
+  labs(title = "Type of Chest Pain by Blood Pressure Level", x= "Blood Pressure Level", y = "Count", fill = "Chest Pain Type" )
+
+ggplot(data = heart_grouped6)+ #need to change x labels from 0-1 to male-female
+  geom_bar(mapping = aes(x = as.factor(sex_factor), fill = ChestPainType), position = "dodge")+
+  labs(title = "Type of Chest Pain by Sex", x= "Sex", y = "Count", fill = "Chest Pain Type")
+
+ggplot(data = heart_grouped6)+
+geom_bar(mapping = aes(x = as.factor(exer_factor), fill = ChestPainType), position = "dodge")+
+  labs(title = "Type of Chest Pain By Whether the Angina Was Exercise Induced", x = "Whether Angina was Exercise Induced", y = "Count", fill = "Chest Pain Type")
+
+ggplot(data = heart_grouped)+
+  geom_bar(mapping = aes(x = as.factor(HeartDisease), fill = ChestPainType), position = "dodge")+
+  labs(title = "Type of Chest Pain By Whether the Patient Has Heart Disease", x = "Whether the Patient Has Heart Disease", y = "Count", fill = "Chest Pain Type")
 ```
 
 
