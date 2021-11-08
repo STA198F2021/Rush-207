@@ -160,28 +160,28 @@ heart_grouped2 <- heart_grouped %>%
 
 chol_step <- heart_grouped2 %>%
   tabyl(chol_level, ChestPainType)
-chisq.test(chol_step)
+fisher.test(chol_step)
 
 heart_grouped3 <- heart_grouped %>%
   filter(ChestPainType %in% c("ASY", "NAP")) 
 
 chol_step2 <- heart_grouped3 %>%
   tabyl(chol_level, ChestPainType)
-chisq.test(chol_step2)
+fisher.test(chol_step2)
 
 heart_grouped4 <- heart_grouped %>%
   filter(ChestPainType %in% c("TA", "ASY")) 
 
-chol_step3 <- heart_grouped4 %>% ##NOT SIGNIFICANT
+chol_step3 <- heart_grouped4 %>%
   tabyl(chol_level, ChestPainType)
-chisq.test(chol_step3)
+fisher.test(chol_step3)
 
 heart_grouped5 <- heart_grouped %>%
   filter(ChestPainType %in% c("ATA", "NAP")) 
 
 chol_step4 <- heart_grouped5 %>%
   tabyl(chol_level, ChestPainType)
-chisq.test(chol_step4)
+fisher.test(chol_step4)
 
 heart_grouped6 <- heart_grouped %>%
   filter(ChestPainType %in% c("ATA", "TA")) 
@@ -195,7 +195,7 @@ heart_grouped7 <- heart_grouped %>%
 
 chol_step6 <- heart_grouped7 %>% #NOT SIGNIFICANT
   tabyl(chol_level, ChestPainType)
-chisq.test(chol_step6)
+fisher.test(chol_step6)
 ```
 
 ```{r step-down-sex}
@@ -250,7 +250,7 @@ exer_step6 <- heart_grouped7 %>% #NOT SIGNIFICANT
 fisher.test(exer_step6)
 ```
 
-```{r step-down-exercise}
+```{r step-down-RBP}
 RBP_step <- heart_grouped2 %>%
   tabyl(press_level, ChestPainType)
 fisher.test(RBP_step)
@@ -276,6 +276,16 @@ RBP_step6 <- heart_grouped7 %>% #NOT SIG
 fisher.test(RBP_step6)
 ```
 
+# Visualized Results
+
+```{r graph1}
+
+heart_grouped2 %>%
+  ggplot()+
+  geom_bar(mapping = aes(x = chol_level, fill = ChestPainType), position = "dodge")+
+  labs(title = "")
+
+```
 
 
 
