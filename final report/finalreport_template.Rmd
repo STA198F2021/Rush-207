@@ -6,21 +6,24 @@ date: "10/31/21"
 output: pdf_document
 ---
 
-# Load Packages
-```{r load-packages}
+```{r load-packages, echo=FALSE}
 library(tidyverse) 
 library(janitor)
 
-knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 ``` 
 
-# Load Data
-```{r load-data}
+```{r load-data, echo=FALSE}
 heart <- readr::read_csv("heart.csv")
 ```
 
-# Data Analysis Plan
-```{r mean-chol}
+# Abstract
+
+# Introduction
+
+For this data visualization, chest pain types and their relation to other physiological factors were analyzed to search for an association between factors, such as blood pressure, cholesterol, and exercise, and the type of chest pain a patient experiences. The dataset being analyzed is the Heart Failure Prediction Dataset, retrieved from Kaggle, and compiled from five sets with common variables. These sources are the Hungarian Institute of Cardiology. Budapest, University Hospital, Zurich, Switzerland, University Hospital, Basel, Switzerland, the V.A. Medical Center, Long Beach, and the Cleveland Clinic Foundation. The variables of interest include gender, resting blood pressure (mm Hg), serum cholesterol (mm/d), whether or not the angina was exercise induced, and whether or not the patient was diagnosed with heart disease (**diagnosis before or after the angina??). To allow for the use of statistical tests, each variable was transformed into a categorical variable. 
+
+```{r mean-chol, echo=FALSE}
 mean_cholesterol <- heart %>%
   group_by(ChestPainType) %>%
   summarize(mean_cholesterol = mean(Cholesterol))%>%
@@ -38,7 +41,7 @@ mean_cholesterol %>%
          y = "Mean Cholesterol Levels (mm/dL)")
 ```
 
-# Grouping Variables
+
 ```{r cholesterol}
 heart_grouped <- heart %>%
   mutate(chol_level = cut(Cholesterol,
@@ -55,7 +58,7 @@ heart_grouped <- heart_grouped %>%
                           right=FALSE))
 ```
 
-# Counting Variables
+
 ```{r factor}
 heart_grouped <- heart_grouped %>%
   mutate(Sex, sex_factor=ifelse(Sex=="M", 0,1)) %>%
@@ -86,7 +89,6 @@ chol_grouped <- heart_grouped %>%
   summarize(count = n())
 ```
 
-# Visualizing Data
 ```{r sex-visuals}
 sex_grouped %>%
   mutate(sex_factor, sex_name=ifelse(sex_factor==0, "Male","Female")) %>%
@@ -305,46 +307,102 @@ disease_step6 <- heart_grouped7 %>%
 fisher.test(disease_step)
 ```
 
-# Visualized Results
+# Results
 
 ```{r graphsASY-TA}
   ggplot(data = heart_grouped4)+
-  geom_bar(mapping = aes(x = chol_level, fill = ChestPainType), position = "dodge")+
+  geom_bar(mapping = aes(x = chol_level, fill = ChestPainType), position = "fill")+
   labs(title = "Type of Chest Pain By Cholesterol Level", x = "Cholesterol Level", y = "Count", fill = "Chest Pain Type")
 
 ggplot(data = heart_grouped4)+
-  geom_bar(mapping = aes(x = press_level, fill = ChestPainType), position = "dodge")+
+  geom_bar(mapping = aes(x = press_level, fill = ChestPainType), position = "fill")+
   labs(title = "Type of Chest Pain by Blood Pressure Level", x= "Blood Pressure Level", y = "Count", fill = "Chest Pain Type" )
 
 ggplot(data = heart_grouped4)+ #need to change x labels from 0-1 to male-female
-  geom_bar(mapping = aes(x = as.factor(sex_factor), fill = ChestPainType), position = "dodge")+
+  geom_bar(mapping = aes(x = as.factor(sex_factor), fill = ChestPainType), position = "fill")+
   labs(title = "Type of Chest Pain by Sex", x= "Sex", y = "Count", fill = "Chest Pain Type")
 
 ggplot(data = heart_grouped4)+
-geom_bar(mapping = aes(x = as.factor(exer_factor), fill = ChestPainType), position = "dodge")+
+geom_bar(mapping = aes(x = as.factor(exer_factor), fill = ChestPainType), position = "fill")+
   labs(title = "Type of Chest Pain By Whether the Angina Was Exercise Induced", x = "Whether Angina was Exercise Induced", y = "Count", fill = "Chest Pain Type")
 ```
 ```{r graphsTA-ATA}
 ggplot(data = heart_grouped6)+
-  geom_bar(mapping = aes(x = chol_level, fill = ChestPainType), position = "dodge")+
+  geom_bar(mapping = aes(x = chol_level, fill = ChestPainType), position = "fill")+
   labs(title = "Type of Chest Pain By Cholesterol Level", x = "Cholesterol Level", y = "Count", fill = "Chest Pain Type")
 
 ggplot(data = heart_grouped6)+
-  geom_bar(mapping = aes(x = press_level, fill = ChestPainType), position = "dodge")+
+  geom_bar(mapping = aes(x = press_level, fill = ChestPainType), position = "fill")+
   labs(title = "Type of Chest Pain by Blood Pressure Level", x= "Blood Pressure Level", y = "Count", fill = "Chest Pain Type" )
 
 ggplot(data = heart_grouped6)+ #need to change x labels from 0-1 to male-female
-  geom_bar(mapping = aes(x = as.factor(sex_factor), fill = ChestPainType), position = "dodge")+
+  geom_bar(mapping = aes(x = as.factor(sex_factor), fill = ChestPainType), position = "fill")+
   labs(title = "Type of Chest Pain by Sex", x= "Sex", y = "Count", fill = "Chest Pain Type")
 
 ggplot(data = heart_grouped6)+
-geom_bar(mapping = aes(x = as.factor(exer_factor), fill = ChestPainType), position = "dodge")+
+geom_bar(mapping = aes(x = as.factor(exer_factor), fill = ChestPainType), position = "fill")+
   labs(title = "Type of Chest Pain By Whether the Angina Was Exercise Induced", x = "Whether Angina was Exercise Induced", y = "Count", fill = "Chest Pain Type")
 
-ggplot(data = heart_grouped)+
-  geom_bar(mapping = aes(x = as.factor(HeartDisease), fill = ChestPainType), position = "dodge")+
+ggplot(data = heart_grouped4)+
+  geom_bar(mapping = aes(x = as.factor(HeartDisease), fill = ChestPainType), position = "fill")+
+  labs(title = "Type of Chest Pain By Whether the Patient Has Heart Disease", x = "Whether the Patient Has Heart Disease", y = "Count", fill = "Chest Pain Type")
+
+ggplot(data = heart_grouped6)+
+  geom_bar(mapping = aes(x = as.factor(HeartDisease), fill = ChestPainType), position = "fill")+
   labs(title = "Type of Chest Pain By Whether the Patient Has Heart Disease", x = "Whether the Patient Has Heart Disease", y = "Count", fill = "Chest Pain Type")
 ```
+
+
+```{r sex-stats}
+
+heart_grouped4 %>%
+ group_by(Sex) %>%
+  summarize(count = n()) %>%
+  print()
+
+heart_grouped4 %>%
+ group_by(Sex, ChestPainType) %>%
+  summarize(count = n()) %>%
+  print()
+
+heart_grouped6 %>%
+ group_by(Sex) %>%
+  summarize(count = n()) %>%
+  print()
+
+heart_grouped6 %>%
+ group_by(Sex, ChestPainType) %>%
+  summarize(count = n()) %>%
+  print()
+
+```
+```{r exer-stats}
+
+heart_grouped4 %>%
+ group_by(ExerciseAngina) %>%
+  summarize(count = n()) %>%
+  print()
+
+heart_grouped4 %>%
+ group_by(ExerciseAngina, ChestPainType) %>%
+  summarize(count = n()) %>%
+  print()
+
+heart_grouped6 %>%
+ group_by(ExerciseAngina) %>%
+  summarize(count = n()) %>%
+  print()
+
+heart_grouped6 %>%
+ group_by(ExerciseAngina, ChestPainType) %>%
+  summarize(count = n()) %>%
+  print()
+
+```
+
+# Discussion
+
+
 
 
 
