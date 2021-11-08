@@ -15,7 +15,10 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```{r load-data, echo=FALSE}
 heart <- readr::read_csv("heart.csv")
+
 ```
+
+
 
 # Abstract
 
@@ -48,6 +51,9 @@ heart_grouped <- heart %>%
                           breaks = c(-Inf, 120, 200, 239, Inf),
                           labels = c("Low", "Normal", "Intermediate", "High"),
                           right=FALSE))
+
+heart_grouped_chol <- heart_grouped %>%
+  filter(Cholesterol > 0)
 ```
 
 ```{r bloodpressure}
@@ -84,7 +90,7 @@ RBP_grouped <- heart_grouped %>%
 ```
 
 ```{r count-cholesterol}
-chol_grouped <- heart_grouped %>%
+chol_grouped <- heart_grouped_chol %>%
   group_by(ChestPainType, chol_level)%>%
   summarize(count = n())
 ```
@@ -142,7 +148,7 @@ exer_table <- heart_grouped %>%
 RBP_table <- heart_grouped %>%
   tabyl(press_level, ChestPainType)
 
-chol_table <- heart_grouped %>%
+chol_table <- heart_grouped_chol %>%
   tabyl(chol_level, ChestPainType)
 
 disease_table <- heart_grouped %>%
@@ -160,46 +166,67 @@ chisq.test(RBP_table)
 chisq.test(disease_table)
 ```
 
-```{r step-down-cholesterol}
+```{r new-groups}
 heart_grouped2 <- heart_grouped %>%
   filter(ChestPainType %in% c("ATA", "ASY")) 
-
-chol_step <- heart_grouped2 %>%
-  tabyl(chol_level, ChestPainType)
-fisher.test(chol_step)
 
 heart_grouped3 <- heart_grouped %>%
   filter(ChestPainType %in% c("ASY", "NAP")) 
 
-chol_step2 <- heart_grouped3 %>%
-  tabyl(chol_level, ChestPainType)
-fisher.test(chol_step2)
-
 heart_grouped4 <- heart_grouped %>%
   filter(ChestPainType %in% c("TA", "ASY")) 
-
-chol_step3 <- heart_grouped4 %>%
-  tabyl(chol_level, ChestPainType)
-fisher.test(chol_step3)
 
 heart_grouped5 <- heart_grouped %>%
   filter(ChestPainType %in% c("ATA", "NAP")) 
 
-chol_step4 <- heart_grouped5 %>%
-  tabyl(chol_level, ChestPainType)
-fisher.test(chol_step4)
-
 heart_grouped6 <- heart_grouped %>%
   filter(ChestPainType %in% c("ATA", "TA")) 
 
-chol_step5 <- heart_grouped6 %>% #NOT SIGNIFICANT; used fisher bc count was <10 for low:TA
+heart_grouped7 <- heart_grouped %>%
+  filter(ChestPainType %in% c("NAP", "TA")) 
+```
+
+
+```{r step-down-cholesterol}
+heart_grouped_chol2 <- heart_grouped_chol %>%
+  filter(ChestPainType %in% c("ATA", "ASY")) 
+
+chol_step <- heart_grouped_chol2 %>%
+  tabyl(chol_level, ChestPainType)
+fisher.test(chol_step)
+
+heart_grouped_chol3 <- heart_grouped_chol %>%
+  filter(ChestPainType %in% c("ASY", "NAP")) 
+
+chol_step2 <- heart_grouped_chol3 %>%
+  tabyl(chol_level, ChestPainType)
+fisher.test(chol_step2)
+
+heart_grouped_chol4 <- heart_grouped_chol %>%
+  filter(ChestPainType %in% c("TA", "ASY")) 
+
+chol_step3 <- heart_grouped_chol4 %>%
+  tabyl(chol_level, ChestPainType)
+fisher.test(chol_step3)
+
+heart_grouped_chol5 <- heart_grouped_chol %>%
+  filter(ChestPainType %in% c("ATA", "NAP")) 
+
+chol_step4 <- heart_grouped_chol5 %>%
+  tabyl(chol_level, ChestPainType)
+fisher.test(chol_step4)
+
+heart_grouped_chol6 <- heart_grouped_chol %>%
+  filter(ChestPainType %in% c("ATA", "TA")) 
+
+chol_step5 <- heart_grouped_chol6 %>% #NOT SIGNIFICANT; used fisher bc count was <10 for low:TA
   tabyl(chol_level, ChestPainType)
 fisher.test(chol_step5)
 
-heart_grouped7 <- heart_grouped %>%
+heart_grouped_chol7 <- heart_grouped_chol %>%
   filter(ChestPainType %in% c("NAP", "TA")) 
 
-chol_step6 <- heart_grouped7 %>% #NOT SIGNIFICANT
+chol_step6 <- heart_grouped_chol7 %>% #NOT SIGNIFICANT
   tabyl(chol_level, ChestPainType)
 fisher.test(chol_step6)
 ```
@@ -310,7 +337,7 @@ fisher.test(disease_step)
 # Results
 
 ```{r graphsASY-TA}
-  ggplot(data = heart_grouped4)+
+  ggplot(data = heart_grouped_chol4)+
   geom_bar(mapping = aes(x = chol_level, fill = ChestPainType), position = "fill")+
   labs(title = "Type of Chest Pain By Cholesterol Level", x = "Cholesterol Level", y = "Count", fill = "Chest Pain Type")
 
@@ -327,7 +354,7 @@ geom_bar(mapping = aes(x = as.factor(exer_factor), fill = ChestPainType), positi
   labs(title = "Type of Chest Pain By Whether the Angina Was Exercise Induced", x = "Whether Angina was Exercise Induced", y = "Count", fill = "Chest Pain Type")
 ```
 ```{r graphsTA-ATA}
-ggplot(data = heart_grouped6)+
+ggplot(data = heart_grouped_chol6)+
   geom_bar(mapping = aes(x = chol_level, fill = ChestPainType), position = "fill")+
   labs(title = "Type of Chest Pain By Cholesterol Level", x = "Cholesterol Level", y = "Count", fill = "Chest Pain Type")
 
