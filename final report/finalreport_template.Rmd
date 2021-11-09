@@ -350,8 +350,9 @@ ggplot(data = heart_grouped4)+ #need to change x labels from 0-1 to male-female
   labs(title = "Type of Chest Pain by Sex", x= "Sex", y = "Count", fill = "Chest Pain Type")
 
 ggplot(data = heart_grouped4)+
-geom_bar(mapping = aes(x = as.factor(exer_factor), fill = ChestPainType), position = "fill")+
-  labs(title = "Type of Chest Pain By Whether the Angina Was Exercise Induced", x = "Whether Angina was Exercise Induced", y = "Count", fill = "Chest Pain Type")
+geom_bar(mapping = aes(x = as.factor(ExerciseAngina), fill = ChestPainType), position = "fill")+
+  labs(title = "Proportion of Chest Pain Type",
+  subtitle = "By Whether the Angina Was Exercise Induced", x = "Whether Angina was Exercise Induced", y = "Proportion", fill = "Chest Pain Type")
 ```
 ```{r graphsTA-ATA}
 ggplot(data = heart_grouped_chol6)+
@@ -360,7 +361,8 @@ ggplot(data = heart_grouped_chol6)+
 
 ggplot(data = heart_grouped6)+
   geom_bar(mapping = aes(x = press_level, fill = ChestPainType), position = "fill")+
-  labs(title = "Type of Chest Pain by Blood Pressure Level", x= "Blood Pressure Level", y = "Count", fill = "Chest Pain Type" )
+  labs(title = "Proportion of Chest Pain Type",
+  subtitle = "By Blood Pressure Level", x= "Blood Pressure Level", y = "Proportion", fill = "Chest Pain Type" )
 
 ggplot(data = heart_grouped6)+ #need to change x labels from 0-1 to male-female
   geom_bar(mapping = aes(x = as.factor(sex_factor), fill = ChestPainType), position = "fill")+
@@ -372,11 +374,13 @@ geom_bar(mapping = aes(x = as.factor(exer_factor), fill = ChestPainType), positi
 
 ggplot(data = heart_grouped4)+
   geom_bar(mapping = aes(x = as.factor(HeartDisease), fill = ChestPainType), position = "fill")+
-  labs(title = "Type of Chest Pain By Whether the Patient Has Heart Disease", x = "Whether the Patient Has Heart Disease", y = "Count", fill = "Chest Pain Type")
+  labs(title = "Proportion of Chest Pain Type",
+  subtitle = "By Whether the Patient Has Heart Disease", x = "Whether the Patient Has Heart Disease", y = "Proportion", fill = "Chest Pain Type")
 
 ggplot(data = heart_grouped6)+
   geom_bar(mapping = aes(x = as.factor(HeartDisease), fill = ChestPainType), position = "fill")+
-  labs(title = "Type of Chest Pain By Whether the Patient Has Heart Disease", x = "Whether the Patient Has Heart Disease", y = "Count", fill = "Chest Pain Type")
+  labs(title = "Proportion of Chest Pain Type",
+  subtitle = "By Whether the Patient Has Heart Disease", x = "Whether the Patient Has Heart Disease", y = "Proportion", fill = "Chest Pain Type")
 ```
 
 
