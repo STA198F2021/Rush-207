@@ -361,7 +361,7 @@ heart_grouped6 %>%
   print()
 
 ```
-```{r exer-stats}
+```{r exer-stats, echo = FALSE}
 
 heart_grouped4 %>%
  group_by(ExerciseAngina) %>%
