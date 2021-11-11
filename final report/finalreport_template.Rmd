@@ -384,6 +384,24 @@ heart_grouped6 %>%
   print()
 
 ```
+```{r RBP-stats}
+heart_grouped %>%
+  group_by(press_level, ChestPainType) %>%
+  summarize(count = n())%>%
+  print()
+
+heart_grouped4 %>%
+  group_by(press_level, ChestPainType) %>%
+  summarize(count = n())%>%
+  print()
+
+heart_grouped6 %>%
+  group_by(press_level, ChestPainType) %>%
+  summarize(count = n())%>%
+  print()
+
+```
+
 
 # Discussion
 
