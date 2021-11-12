@@ -10,6 +10,7 @@ output: pdf_document
 library(tidyverse) 
 library(janitor)
 library(tidymodels)
+library(gridExtra)
 
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 ``` 
@@ -78,46 +79,56 @@ chol_grouped <- heart_grouped_chol %>%
   summarize(count = n())
 ```
 
-```{r sex-visuals}
+```{r count-disease}
+disease_grouped <- heart_grouped %>%
+  group_by(ChestPainType, HeartDisease) %>%
+  summarize(count = n())
+
+```
+
+
+```{r visuals, fig.show = "hold", out.width = "50%"}
 sex_grouped %>%
   mutate(sex_factor, sex_name=ifelse(sex_factor==0, "Male","Female")) %>%
   ggplot()+
   geom_col(aes(x = ChestPainType, y = count, fill = as.factor(sex_name)), position = "fill") +
   labs(title = "Frequency of Chest Pain Type by Sex",
        x = "Chest Pain Type",
-       y = "Count",
+       y = "Proportion",
        fill = "Sex")
-```
 
-```{r exer-visuals}
 exer_grouped %>%
   mutate(exer_factor, exer_cat=ifelse(exer_factor==0, "No","Yes")) %>%
   ggplot()+
   geom_col(aes(x = ChestPainType, y = count, fill = as.factor(exer_cat)), position = "fill") +
-  labs(title = "Frequency of Chest Pain Type by Exercise Level",
+  labs(title = "Frequency of Chest Pain Type by Exercise",
        x = "Chest Pain Type",
-       y = "Count",
+       y = "Proportion",
        fill = "Exercise Induced Angina Status")
-```
 
-```{r BP-visuals}
 RBP_grouped %>%
   ggplot()+
   geom_col(aes(x = ChestPainType, y = count, fill = as.factor(press_level)), position = "fill") +
   labs(title = "Frequency of Chest Pain Type by Blood Pressure Level",
        x = "Chest Pain Type",
-       y = "Count",
+       y = "Proportion",
        fill = "Blood Pressure Level")
-```
 
-```{r chol-visuals}
 chol_grouped %>%
   ggplot()+
   geom_col(aes(x = ChestPainType, y = count, fill = as.factor(chol_level)), position = "fill") +
   labs(title = "Frequency of Chest Pain Type by Cholesterol Level",
        x = "Chest Pain Type",
-       y = "Count",
+       y = "Proportion",
        fill = "Cholesterol Level")
+
+disease_grouped %>%
+  mutate(HeartDisease, disease_cat=ifelse(HeartDisease==0, "Normal","Disease")) %>%
+  ggplot()+
+  geom_col(aes(x = ChestPainType, y = count, fill = as.factor(HeartDisease)), position = "fill")+
+  labs(title = "Frequency of Chest Pain Type by Heart Disease",
+       x = "Chest Pain Type",
+       y = "Proportion")
 ```
 
 # Statistical Tests
@@ -171,111 +182,54 @@ heart_grouped7 <- heart_grouped %>%
 
 
 ```{r step-down-sex}
-sex_step <- heart_grouped2 %>%
-  tabyl(Sex, ChestPainType)
-fisher.test(sex_step)
-
-sex_step2 <- heart_grouped3 %>%
-  tabyl(Sex, ChestPainType)
-fisher.test(sex_step2)
 
 sex_step3 <- heart_grouped4 %>% #NOT SIGNIFICANT
   tabyl(Sex, ChestPainType)
 fisher.test(sex_step3)
 
-sex_step4 <- heart_grouped5 %>% #NOT SIGNIFICANT
-  tabyl(Sex, ChestPainType)
-fisher.test(sex_step4)
-
 sex_step5 <- heart_grouped6 %>% #NOT SIGNIFICANT
   tabyl(Sex, ChestPainType)
 fisher.test(sex_step5)
 
-sex_step6 <- heart_grouped7 %>% #NOT SIGNIFICANT
-  tabyl(Sex, ChestPainType)
-fisher.test(sex_step6)
 ```
 
 ```{r step-down-exercise}
-exer_step <- heart_grouped2 %>%
-  tabyl(ExerciseAngina, ChestPainType)
-fisher.test(exer_step)
-
-exer_step2 <- heart_grouped3 %>%
-  tabyl(ExerciseAngina, ChestPainType)
-fisher.test(exer_step2)
 
 exer_step3 <- heart_grouped4 %>% 
   tabyl(ExerciseAngina, ChestPainType)
 fisher.test(exer_step3)
 
-exer_step4 <- heart_grouped5 %>% 
-  tabyl(ExerciseAngina, ChestPainType)
-fisher.test(exer_step4)
-
 exer_step5 <- heart_grouped6 %>% #NOT SIGNIFICANT
   tabyl(ExerciseAngina, ChestPainType)
 fisher.test(exer_step5)
 
-exer_step6 <- heart_grouped7 %>% #NOT SIGNIFICANT
-  tabyl(ExerciseAngina, ChestPainType)
-fisher.test(exer_step6)
 ```
 
 ```{r step-down-RBP}
-RBP_step <- heart_grouped2 %>%
-  tabyl(press_level, ChestPainType)
-fisher.test(RBP_step)
-
-RBP_step2 <- heart_grouped3 %>% #NOT SIG
-  tabyl(press_level, ChestPainType)
-fisher.test(RBP_step2)
 
 RBP_step3 <- heart_grouped4 %>% #NOT SIG
   tabyl(press_level, ChestPainType)
 fisher.test(RBP_step3)
 
-RBP_step4 <- heart_grouped5 %>% 
-  tabyl(press_level, ChestPainType)
-fisher.test(RBP_step4)
-
 RBP_step5 <- heart_grouped6 %>% 
   tabyl(press_level, ChestPainType)
 fisher.test(RBP_step5)
 
-RBP_step6 <- heart_grouped7 %>% #NOT SIG
-  tabyl(press_level, ChestPainType)
-fisher.test(RBP_step6)
 ```
-```{r disease step down}
-disease_step <- heart_grouped2 %>%
-  tabyl(HeartDisease, ChestPainType)
-fisher.test(disease_step)
-
-disease_step2 <- heart_grouped3 %>%
-  tabyl(HeartDisease, ChestPainType)
-fisher.test(disease_step2)
+```{r disease-step-down}
 
 disease_step3 <- heart_grouped4 %>%
   tabyl(HeartDisease, ChestPainType)
 fisher.test(disease_step3)
 
-disease_step4 <- heart_grouped5 %>%
-  tabyl(HeartDisease, ChestPainType)
-fisher.test(disease_step4)
-
 disease_step5 <- heart_grouped6 %>%
   tabyl(HeartDisease, ChestPainType)
 fisher.test(disease_step5)
-
-disease_step6 <- heart_grouped7 %>%
-  tabyl(HeartDisease, ChestPainType)
-fisher.test(disease_step)
 ```
 
 # Results
 
-```{r T1, out.width = "75%"}
+```{r T1, out.width = "50%"}
 knitr::include_graphics("Screen_Shot_T1.png")
 ```
 
@@ -284,23 +238,19 @@ knitr::include_graphics("Screen_Shot_T2.png")
 
 ```
 
-
-```{r graphsASY-TA}
-  # ggplot(data = heart_grouped_chol4)+
-  # geom_bar(mapping = aes(x = chol_level, fill = ChestPainType), position = "fill")+
-
-
-ggplot(data = heart_grouped4)+
-geom_bar(mapping = aes(x = as.factor(ExerciseAngina), fill = ChestPainType), position = "fill")+
-  labs(title = "Proportion of Chest Pain Type",
-  subtitle = "By Whether the Angina Was Exercise Induced", x = "Whether Angina was Exercise Induced", y = "Proportion", fill = "Chest Pain Type")
-```
-```{r graphsTA-ATA}
+```{r graphsTA-ATA, fig.show = "hold", out.width = "50%"}
 
 ggplot(data = heart_grouped6)+
   geom_bar(mapping = aes(x = press_level, fill = ChestPainType), position = "fill")+
   labs(title = "Proportion of Chest Pain Type",
   subtitle = "By Blood Pressure Level", x= "Blood Pressure Level", y = "Proportion", fill = "Chest Pain Type" )
+
+heart_grouped6 %>%
+   mutate(HeartDisease, heart_factor=ifelse(HeartDisease=="1", "Heart Disease", "Normal")) %>%
+ggplot()+
+  geom_bar(mapping = aes(x = heart_factor, fill = ChestPainType), position = "fill")+
+  labs(title = "Proportion of Chest Pain Type",
+  subtitle = "By Whether the Patient Has Heart Disease", x = "Whether the Patient Has Heart Disease", y = "Proportion", fill = "Chest Pain Type")
 
 heart_grouped4 %>%
   mutate(HeartDisease, heart_factor=ifelse(HeartDisease=="1", "Heart Disease", "Normal")) %>%
@@ -309,12 +259,11 @@ heart_grouped4 %>%
   labs(title = "Proportion of Chest Pain Type",
   subtitle = "By Whether the Patient Has Heart Disease", x = "Whether the Patient Has Heart Disease", y = "Proportion", fill = "Chest Pain Type")
 
-heart_grouped6 %>%
-   mutate(HeartDisease, heart_factor=ifelse(HeartDisease=="1", "Heart Disease", "Normal")) %>%
-ggplot()+
-  geom_bar(mapping = aes(x = heart_factor, fill = ChestPainType), position = "fill")+
+ggplot(data = heart_grouped4)+
+geom_bar(mapping = aes(x = as.factor(ExerciseAngina), fill = ChestPainType), position = "fill")+
   labs(title = "Proportion of Chest Pain Type",
-  subtitle = "By Whether the Patient Has Heart Disease", x = "Whether the Patient Has Heart Disease", y = "Proportion", fill = "Chest Pain Type")
+  subtitle = "By Whether the Angina Was Exercise Induced", x = "Whether Angina was Exercise Induced", y = "Proportion", fill = "Chest Pain Type")
+
 ```
 
 ```{r log-reg1}
@@ -412,7 +361,6 @@ heart_grouped6 %>%
 
 ```
 
-knitr::include_graphics("IMG_6447.jpg")
 
 # Discussion
 
