@@ -275,6 +275,16 @@ fisher.test(disease_step)
 
 # Results
 
+```{r T1, out.width = "75%"}
+knitr::include_graphics("Screen_Shot_T1.png")
+```
+
+```{r T2, out.width = "75%"}
+knitr::include_graphics("Screen_Shot_T2.png")
+
+```
+
+
 ```{r graphsASY-TA}
   # ggplot(data = heart_grouped_chol4)+
   # geom_bar(mapping = aes(x = chol_level, fill = ChestPainType), position = "fill")+
@@ -402,6 +412,7 @@ heart_grouped6 %>%
 
 ```
 
+knitr::include_graphics("IMG_6447.jpg")
 
 # Discussion
 
