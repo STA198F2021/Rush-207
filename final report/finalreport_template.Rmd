@@ -1,5 +1,5 @@
 ---
-title: "Final Report"
+title: "An Analysis of Predictors for Types of Chest Pain Experienced"
 subtitle: "due November 16, 2021 by 11:59 PM "
 author: "Shelby Brown, Katie Lam, Kaeden Hill"
 date: "10/31/21"
@@ -85,7 +85,7 @@ disease_grouped <- heart_grouped %>%
 ```
 
 
-```{r visuals, fig.show = "hold", out.width = "70%"}
+```{r visuals, fig.show = "hold", out.width = "50%"}
 sex_grouped %>%
   mutate(sex_factor, sex_name=ifelse(sex_factor==0, "Male","Female")) %>%
   ggplot()+
@@ -389,18 +389,38 @@ heart_grouped6 %>%
 
 # Discussion
 
-According to the data, our hypothesis that some factors would be more strongly associated with certain types of chest pain was supported. For example, sex, blood pressure level, whether an angina was exercise induced, and heart disease had significant associations with types of chest pain. Additionally, having elevated blood pressure and having heart disease appeared to affect the odds of having atypical angina instead of a typical angina, and whether an angina was exercise induced and having heart disease appeared to affect the odds of having an asymptomatic angina instead of a typical angina. In relation to blood pressure levels, there was found to be a statistically significant difference in whether a person experienced a typical or atypical angina. Those in the category of elevated blood pressure levels were expected to be 3.38 times more likely to have an atypical angina than a typical angina. Elevated blood pressure is an incredibly common disease in older adults, therefore being aware of increased odds of the more serious atypical angina can help prevent the pain from progressing into more severe cardiovascular illnesses.
+In relation to blood pressure levels, there was found to be a statistically significant difference in whether a person experienced a typical or atypical angina. Those in the category of elevated blood pressure levels were expected to be 3.38 times more likely to have an atypical angina than a typical angina. Elevated blood pressure is an incredibly common disease in older adults, therefore being aware of increased odds of the more serious atypical angina can help prevent the pain from progressing into more severe cardiovascular illnesses.
 
 In relation to whether one has heart disease, statistically significant differences were found between both typical versus atypical anginas and typical versus asymptomatic anginas. Those diagnosed with heart disease were surprisingly expected to be 0.219 times less likely to have an atypical angina when compared to typical anginas. This is inconsistent with our hypothesis that heart disease would increase the odds of those having the generally more severe atypical anginas. It is possible that those with heart disease simply experience more chest pain, which broadens their experience of typical anginas. However, those with heart disease were expected to be 2.72 times more likely to have an asymptomatic angina when compared to typical anginas, which is consistent with our hypothesis. Because asymptomatic anginas present with seemingly non-cardiovascular related symptoms, it is important for those with heart disease to know to look out for these symptoms, as they can increase one’s likelihood of experiencing future heart attacks.
 
 For whether the angina was exercise induced, there was found to be a statistically significant difference between whether they experienced typical or asymptomatic anginas. When the angina was exercise induced, the person was expected to be 7.14 times more likely to experience an asymptomatic angina when compared to typical anginas. The symptoms of asymptomatic  anginas, such as acid reflux and flu-like symptoms, are very common experiences after exercising. Therefore, it is important for those with elevated risk factors such as heart disease diagnoses or high blood pressure to be aware of the possibility of asymptomatic anginas after vigorous exercise.
 
-Interesting finds also lie within our non-statistically significant data. One association that was inconsistent with our hypothesis was that there was no evidence of a statistically significant difference in occurrence of typical anginas versus atypical anginas or typical anginas versus asymptomatic anginas depending on gender. Because gender is known to have significant effects on the likelihood of one developing certain physiological factors like high blood pressure and cholesterol, we expected there to be a dependence on gender when evaluating types of chest pain. A possible reason for the lack of statistically significant differences could be that men are generally expected to experience cardiovascular symptoms such as chest pain more than women (SOURCE). Therefore, the true difference may lie in the likelihood of experiencing chest pain in general rather than in specific types.
+Interesting finds also lie within our non-statistically significant data. One association that was inconsistent with our hypothesis was that there was no evidence of a statistically significant difference in occurrence of typical anginas versus atypical anginas or typical anginas versus asymptomatic anginas depending on gender. Because gender is known to have significant effects on the likelihood of one developing certain physiological factors like high blood pressure and cholesterol, we expected there to be a dependence on gender when evaluating types of chest pain. A possible reason for the lack of statistically significant differences could be that men are generally expected to experience cardiovascular symptoms such as chest pain more than women (Center for Disease Control, 2021). Therefore, the true difference may lie in the likelihood of experiencing chest pain in general rather than in specific types.
 
 We also found that there was no evidence of statistically significant differences in chest pain types when tested with cholesterol levels. This is inconsistent with our hypothesis as elevated cholesterol level is a large factor in causing blockages that lead to cardiovascular disease. A possible reason behind this finding could be the large amount of cholesterol levels recorded as zero in the data, which we assumed meant no cholesterol level was recorded, so those values were filtered out. The resulting smaller sample size for cholesterol values could have impacted the expected and actual outcomes within the contingency tables, making the differences statistically insignificant. Another reason why cholesterol levels may not be significantly associated with different types of chest pain could be that they really are associated equally with all types of chest pain. More studies are necessary to pinpoint the reason why cholesterol levels had an insignificant association.
 
 There exists some limitations to our research. Though statistically significant relationships between blood pressure level, whether a patient has heart disease, and whether an angina was exercise induced, and whether a patient experienced an atypical angina or an asymptomatic angina instead of a typical angina were observed, the magnitude of these effects cannot be derived from our present analysis. Our analysis did not account for an individual's age, leaving us unaware of the ways in which age interacts with specific factors to predict angina types. Regarding gender, there was a disproportionate number of men and women, with a far greater sample size of men than women. This data is also observational; it is beyond the scope of our analysis to make causative statements regarding the relationship of blood pressure level, heart disease, and exercise level on chest pain type. A key limitation of our data analysis was that there were values of 0 in the cholesterol specific dataset, and after filtering those out, the sample size was smaller. Additionally, this was an ex post facto study, so we could not manipulate the independent variables or randomly assign the subjects to different groups. It was not revealed to us how the data were collected, so specifics such as what entails exercise in “exercise induced” and the precise dichotomy between typical and atypical angina were not clear. Analyzing the heart disease variable required a retrospective approach as this dataset was compiled from studies where heart disease was the outcome but we analyzed and drew conclusions where heart disease was a predictor. This makes it impossible to predict any cause-effect relationship, as other factors not analyzed may have had a greater influence over the type of chest pain experienced than the variables included in the study. Also, some low expected values were observed in the preliminary Chi Squared tests. The approximation therefore may not have been accurate. However, this limitation was corrected in the step down tests, as Fisher’s Exact Tests were used instead since the number of outcomes had been reduced to two, and only the step down tests were used to make conclusions regarding an existing association. 
 
+# Conclusion
 
+According to the data, our hypothesis that some factors would be more strongly associated with certain types of chest pain was supported. For example, sex, blood pressure level, whether an angina was exercise induced, and heart disease had significant associations with types of chest pain. Additionally, having elevated blood pressure and having heart disease appeared to affect the odds of having atypical angina instead of a typical angina, and whether an angina was exercise induced and having heart disease appeared to affect the odds of having an asymptomatic angina instead of a typical angina. A follow up study could test this model by applying it to a different set of data.
+
+# References
+
+AlBadri, A., Leong, D., Bairey Merz, C. N., Wei, J., Handberg, E. M., Shufelt, C. L., Mehta, P. K., Nelson, M. D., Thomson, L. E., Berman, D. S., Shaw, L. J., Cook-Wiens, G., & Pepine, C. J. (2017). Typical angina is associated with greater coronary endothelial dysfunction but not abnormal vasodilatory reserve. Clinical cardiology, 40(10), 886–891. https://doi.org/10.1002/clc.22740
+
+Angina. (n.d.). Clevelandclinic.Org. Retrieved November 13, 2021, from https://my.clevelandclinic.org/health/diseases/21489-angina
+
+Cardiovascular diseases. (n.d.). Who.Int. Retrieved November 13, 2021, from https://www.who.int/health-topics/cardiovascular-diseases
+
+CDC. (2021, September 27). Heart disease facts. Cdc.Gov. https://www.cdc.gov/heartdisease/facts.htm
+
+Constant J. The diagnosis of nonanginal chest pain. Keio J Med. 1990 Sep;39(3):187-92. doi: 10.2302/kjm.39.187. PMID: 2255129.
+
+Kenneth R. Bennett, Atypical Chest Pain—It's Time to Be Rid of It, The American Journal of Medicine, Volume 126, Issue 3, 2013, Page 191,ISSN 0002-9343, https://doi.org/10.1016/j.amjmed.2012.05.017. (https://www.sciencedirect.com/science/article/pii/S0002934312004883)
+
+Loskot F, Novotny P. Die asymptomatische Myokardischämie [Asymptomatic myocardial ischemia]. Z Gesamte Inn Med. 1990 Jul 1;45(13):370-3. German. PMID: 2238747.
+
+Silent heart attack: What are the risks? (2020, April 21). Mayoclinic.Org. https://www.mayoclinic.org/diseases-conditions/heart-attack/expert-answers/silent-heart-attack/faq-20057777.
 
 
