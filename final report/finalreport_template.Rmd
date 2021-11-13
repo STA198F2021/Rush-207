@@ -6,7 +6,7 @@ date: "10/31/21"
 output: pdf_document
 ---
 
-```{r load-packages, echo=FALSE}
+```{r load-packages, echo=FALSE, message = FALSE, warning = FALSE}
 library(tidyverse) 
 library(janitor)
 library(tidymodels)
@@ -23,11 +23,10 @@ heart <- readr::read_csv("heart.csv")
 
 
 # Abstract
+The world’s deadliest killer is heart disease, responsible for 16% of the world’s total deaths. Many factors are associated with heart disease, including blood pressure level, cholesterol level, sex, and type of chest pain. Anginas, or chest pains, are the most important indicator for heart disease, and they can be grouped into four categories of typical, atypical, non-anginal pain, or asymptomatic. In order to assess the factors that may influence the type of chest pain experienced, we analyzed a combined cardiovascular dataset from Kaggle. We hypothesized that each blood pressure level, cholesterol level, sex, and heart disease diagnosis would be more strongly associated with one or more types of chest pains than others because of differences in proportions of chest pain types among the different levels of each variable. After step down tests were run, the data suggested that blood pressure level and heart disease were significantly related to whether an angina was typical or atypical, and whether the angina was exercise induced and whether a patient had heart disease were significantly related to whether an angina was asymptomatic or atypical. From these findings, we conclude that, of the predicting variables analyzed, blood pressure level, whether a patient has heart disease, and whether an angina was exercise induced are likely to influence whether a patient experiences an atypical angina or an asymptomatic angina instead of a typical angina.
 
 # Introduction
-
-For this data visualization, chest pain types and their relation to other physiological factors were analyzed to search for an association between factors, such as blood pressure, cholesterol, and exercise, and the type of chest pain a patient experiences. The dataset being analyzed is the Heart Failure Prediction Dataset, retrieved from Kaggle, and compiled from five sets with common variables. These sources are the Hungarian Institute of Cardiology. Budapest, University Hospital, Zurich, Switzerland, University Hospital, Basel, Switzerland, the V.A. Medical Center, Long Beach, and the Cleveland Clinic Foundation. The variables of interest include gender, resting blood pressure (mm Hg), serum cholesterol (mm/d), whether or not the angina was exercise induced, and whether or not the patient was diagnosed with heart disease (**diagnosis before or after the angina??). To allow for the use of statistical tests, each variable was transformed into a categorical variable. 
-
+Cardiovascular disease is one of the most prevalent illnesses across all ethnic groups and cultures worldwide. According to the World Health Organization, 17.9 million people die from cardiovascular related illnesses each year. Importantly, recent research has shown differences in the types of chest pain symptoms, also known as angina, one experiences with heart disease, which can indicate the severity of the cardiac episode occurring (Cleveland Clinic, 2021). Anginas are often divided into three categories: typical angina (defined as “substernal chest pain precipitated by some type of stress and relieved by nitroglycerine”), atypical angina (defined as “symptoms that do not meet criteria for TA”) (AlBadri et. al, 2017), and asymptomatic angina (defined as a “transient alteration in myocardial perfusion in the absence of chest pain”) (F Loskot, 1990). Non-anginal pain is (defined as “chest pain that lasts longer than 30 minutes or less than 5 seconds, can be brought on with pressure, or can be relieved when lying down”) (J Constant, 1990).
 
 ```{r cholesterol}
 heart_grouped <- heart %>%
@@ -47,7 +46,6 @@ heart_grouped <- heart_grouped %>%
                           labels = c("Normal", "Elevated", "Hypertension 1", "Hypertension 2"),
                           right=FALSE))
 ```
-
 
 ```{r factor}
 heart_grouped <- heart_grouped %>%
@@ -87,7 +85,7 @@ disease_grouped <- heart_grouped %>%
 ```
 
 
-```{r visuals, fig.show = "hold", out.width = "50%"}
+```{r visuals, fig.show = "hold", out.width = "70%"}
 sex_grouped %>%
   mutate(sex_factor, sex_name=ifelse(sex_factor==0, "Male","Female")) %>%
   ggplot()+
@@ -131,7 +129,16 @@ disease_grouped %>%
        y = "Proportion")
 ```
 
-# Statistical Tests
+According to the graphs visualized above, there seems to be differences in frequency between the chest pain types grouped by our predictors. Understanding possible relationships between known factors of heart disease, such as gender, blood pressure, cholesterol, and exercise level, and the type of angina experienced, typical, atypical, non-anginal pain, or asymptomatic, would produce significant information for healthcare professionals to look for in their patients. Additionally, understanding whether having heart disease is more strongly associated with one or more types of angina can help physicians make future diagnoses. In analyzing if there are associations between these common risk factors and types of anginal pain, healthcare professionals and patients themselves will be able to more accurately predict the true severity of their symptoms. Therefore, this paper will explore the following question: are factors, such as blood pressure level, cholesterol level, sex, heart disease, or whether an angina was exercise induced more closely associated with certain types of chest pain?
+
+# Methods
+The data used in this analysis was the Heart Failure Prediction Dataset, retrieved from Kaggle, that compiled five datasets of heart failure observations. The data included in this compilation were from separate studies done by the Hungarian Institute of Cardiology in Budapest, the University Hospital in Zurich, Switzerland, the University Hospital in Basel, Switzerland, Virginia Medical Center at Long Beach, and the Cleveland Clinic Foundation. The variables of interest included Sex (describing the sex of the patient), RestingBP (the resting blood pressure of the patient, measured in mm Hg), Cholesterol (the serum cholesterol of the patient, measured in mm/d), ExerciseAngina (whether or not the angina was exercise induced), and HeartDisease (whether or not the patient was diagnosed with heart disease). Because the observations for the cholesterol variable contained a large amount of zeroes, a separate dataset was created with filtered values, where Cholesterol > 0. It was assumed that having a cholesterol level of 0 mm/d was for observations that didn’t record cholesterol levels. However, this filtered dataset was only used for analyses testing the independence of Cholesterol and ChestPainType because the other variables analyzed didn’t have missing values. 
+
+In order to allow for statistical analysis of categorical outcomes, each continuous predicting variable was transformed into a categorical variable by sorting numerical values into ranges. For example, the ranges chosen for Cholesterol were Low (<= 120 mm/d), Normal (121-200 mm/d), Intermediate (201-239 mm/d) and High (>= 240 mm/d), and saved as the variable chol_level. The ranges chosen for Resting Blood Pressure were Normal (<= 120 mmHg), elevated (121-130 mmHg), hypertension stage one (131-140 mmHg), and hypertension stage two (>=141 mmHg), and saved as the variable press_level. The categories for Sex were M (male) and F (female). The categories for ExerciseAngina were Y (yes, the angina was exercise induced) and N (no, the angina wasn’t exercise induced). The categories for HeartDisease were 1 (the patient had heart disease) and 0 (the patient didn’t have heart disease). 
+
+After the data were sorted, contingency tables were made for each predicting variable, with the levels of the predicting variable as the rows, and the type of chest pain as the columns. Then, Chi squared tests were run that tested the independence between the possible predicting variable (chol_level, press_level, Sex, ExerciseAngina, and HeartDisease) and the response variable (ChestPainType). For the results that were significant at a 95% confidence level (suggesting that the predicting variable and the type of chest pain experienced weren’t independent), step down tests were run that tested the independence between that predicting variable and two pairs of chest pain that were of particular interest. These step down tests were Fisher’s Exact Tests instead of X2 tests to correct for the fact that the sample size was decreased after filtering for the pair of chest pain types. The two pairs of chest pain types analyzed during the step down tests were typical anginas (TA) & atypical anginas (ATA), and typical anginas (TA) and asymptomatic anginas (ASY). Results from these step down tests allowed us to see if any of the predicting variables could be associated with whether a patient experiences a typical angina versus an atypical angina, or whether a patient experiences a typical angina versus an asymptomatic angina. These pairs of chest pain were more significant to analyze than other pairs because analyzing these pairs can help elucidate factors that affect deviations from the symptoms of a typical angina.
+Last, two logistic regression models were fit to the outcomes TA & ATA and TA & ASY. TA was the reference group for both models to allow for a simple comparison between models. The predicting variables included in each model were those that showed a significant association with the type of chest pain in the Fisher’s Exact step down tests.
+
 ```{r tables}
 sex_table <- heart_grouped %>%
   tabyl(Sex, ChestPainType)
@@ -149,12 +156,12 @@ disease_table <- heart_grouped %>%
   tabyl(HeartDisease, ChestPainType)
 ```
 
-```{r chisq}
+```{r chisq, eval = FALSE}
 chisq.test(sex_table)
 chisq.test(exer_table)
 ```
 
-```{r chi-squared}
+```{r chi-squared, eval = FALSE}
 chisq.test(chol_table)
 chisq.test(RBP_table)
 chisq.test(disease_table)
@@ -181,7 +188,7 @@ heart_grouped7 <- heart_grouped %>%
 ```
 
 
-```{r step-down-sex}
+```{r step-down-sex, eval = FALSE}
 
 sex_step3 <- heart_grouped4 %>% #NOT SIGNIFICANT
   tabyl(Sex, ChestPainType)
@@ -193,7 +200,7 @@ fisher.test(sex_step5)
 
 ```
 
-```{r step-down-exercise}
+```{r step-down-exercise, eval = FALSE}
 
 exer_step3 <- heart_grouped4 %>% 
   tabyl(ExerciseAngina, ChestPainType)
@@ -205,7 +212,7 @@ fisher.test(exer_step5)
 
 ```
 
-```{r step-down-RBP}
+```{r step-down-RBP, eval = FALSE}
 
 RBP_step3 <- heart_grouped4 %>% #NOT SIG
   tabyl(press_level, ChestPainType)
@@ -216,7 +223,7 @@ RBP_step5 <- heart_grouped6 %>%
 fisher.test(RBP_step5)
 
 ```
-```{r disease-step-down}
+```{r disease-step-down, eval = FALSE}
 
 disease_step3 <- heart_grouped4 %>%
   tabyl(HeartDisease, ChestPainType)
@@ -233,10 +240,14 @@ fisher.test(disease_step5)
 knitr::include_graphics("Screen_Shot_T1.png")
 ```
 
+With the H0 set as the predicting variable and ChestPainType being independent, the Chi Squared Test results, displayed in Table 1, show that Sex, ExerciseAngina, press_level, and HeartDisease were associated with ChestPainType. The p values for the X2 tests, testing the independence between the predicting variable and ChestPainType, were less than the significance level of 0.05. Therefore, the H0 that the two variables were independent was rejected. The X2 test for the chol_level predictor, on the other hand, had a p value of 0.4738, which is greater than 0.05. There was no evidence that ChestPainType was dependent on chol_level.
+
 ```{r T2, out.width = "75%"}
 knitr::include_graphics("Screen_Shot_T2.png")
 
 ```
+
+According to the Fisher’s Exact step down tests, whether an angina was a typical angina (TA) or atypical angina (ATA) was significantly associated with blood pressure level (press_level; p value = 0.006839) and whether the patient had heart disease (HeartDisease; p value = 3.929e-05). Whether an angina was typical or asymptomatic (ASY) was significantly associated with whether or not the angina was exercise induced (ExerciseAngina; p value = 4.23e-10) and whether the patient had heart disease (HeartDisease; p value = 6.656e-07). 
 
 ```{r graphsTA-ATA, fig.show = "hold", out.width = "50%"}
 
@@ -293,11 +304,23 @@ tidy(exer_fit, conf.int = TRUE, exponentiate = TRUE)
 
 
 ```
+For the logistic regression model for the TA & ATA outcome, the reference group for ChestPainType (the outcome variable) was “TA,” the reference group for press_level was “Normal,” and the reference group for HeartDisease was “0” (no heart disease). 
+
+With a slope estimate of 3.38, persons with elevated blood pressure had 3.38 times the odds of having an atypical angina than a typical angina. This estimate was significant, with p = 0.0415 and a confidence interval of (1.05, 11.2).
+
+There was no statistical evidence of an increase in odds of having an atypical angina versus a typical angina compared to the reference groups for persons with blood pressure in the hypertension 1 and hypertension 2 range, as the p values were 0.176 and 0.816, respectively. 
+
+With a slope estimate of 0.219, persons diagnosed with heart disease had 0.219 times the odds of having an atypical angina than a typical angina. This estimate was significant, with p = 7.68e-5 and a confidence interval of (0.102, 0.464).
+
+
+For the logistic regression model for the TA & ASY outcome, the reference group for ChestPainType (the outcome variable) was “TA,” the reference group for ExerciseAngina was “0” (angina wasn’t exercise induced), and the reference group for HeartDisease was “0” (no heart disease). 
+
+With a slope estimate of 7.14, persons whose anginas were exercise induced had 7.14 times the odds of having an asymptomatic angina than the reference group. This estimate was significant with p = 2.15e-5 and a confidence interval of (3.08, 19.9). 
+With a slope estimate of 2.72, persons who were diagnosed with heart disease had 2.72 times the odds of having an asymptomatic angina than the reference group. This estimate was significant, with p = 0.00278 and a confidence interval of (1.42, 5.30).
 
 
 
-
-```{r sex-stats}
+```{r sex-stats, eval = FALSE}
 
 heart_grouped4 %>%
  group_by(Sex) %>%
@@ -320,7 +343,8 @@ heart_grouped6 %>%
   print()
 
 ```
-```{r exer-stats, echo = FALSE}
+
+```{r exer-stats, eval = FALSE}
 
 heart_grouped4 %>%
  group_by(ExerciseAngina) %>%
@@ -343,7 +367,8 @@ heart_grouped6 %>%
   print()
 
 ```
-```{r RBP-stats}
+
+```{r RBP-stats, eval = FALSE}
 heart_grouped %>%
   group_by(press_level, ChestPainType) %>%
   summarize(count = n())%>%
@@ -364,6 +389,17 @@ heart_grouped6 %>%
 
 # Discussion
 
+According to the data, our hypothesis that some factors would be more strongly associated with certain types of chest pain was supported. For example, sex, blood pressure level, whether an angina was exercise induced, and heart disease had significant associations with types of chest pain. Additionally, having elevated blood pressure and having heart disease appeared to affect the odds of having atypical angina instead of a typical angina, and whether an angina was exercise induced and having heart disease appeared to affect the odds of having an asymptomatic angina instead of a typical angina. In relation to blood pressure levels, there was found to be a statistically significant difference in whether a person experienced a typical or atypical angina. Those in the category of elevated blood pressure levels were expected to be 3.38 times more likely to have an atypical angina than a typical angina. Elevated blood pressure is an incredibly common disease in older adults, therefore being aware of increased odds of the more serious atypical angina can help prevent the pain from progressing into more severe cardiovascular illnesses.
+
+In relation to whether one has heart disease, statistically significant differences were found between both typical versus atypical anginas and typical versus asymptomatic anginas. Those diagnosed with heart disease were surprisingly expected to be 0.219 times less likely to have an atypical angina when compared to typical anginas. This is inconsistent with our hypothesis that heart disease would increase the odds of those having the generally more severe atypical anginas. It is possible that those with heart disease simply experience more chest pain, which broadens their experience of typical anginas. However, those with heart disease were expected to be 2.72 times more likely to have an asymptomatic angina when compared to typical anginas, which is consistent with our hypothesis. Because asymptomatic anginas present with seemingly non-cardiovascular related symptoms, it is important for those with heart disease to know to look out for these symptoms, as they can increase one’s likelihood of experiencing future heart attacks.
+
+For whether the angina was exercise induced, there was found to be a statistically significant difference between whether they experienced typical or asymptomatic anginas. When the angina was exercise induced, the person was expected to be 7.14 times more likely to experience an asymptomatic angina when compared to typical anginas. The symptoms of asymptomatic  anginas, such as acid reflux and flu-like symptoms, are very common experiences after exercising. Therefore, it is important for those with elevated risk factors such as heart disease diagnoses or high blood pressure to be aware of the possibility of asymptomatic anginas after vigorous exercise.
+
+Interesting finds also lie within our non-statistically significant data. One association that was inconsistent with our hypothesis was that there was no evidence of a statistically significant difference in occurrence of typical anginas versus atypical anginas or typical anginas versus asymptomatic anginas depending on gender. Because gender is known to have significant effects on the likelihood of one developing certain physiological factors like high blood pressure and cholesterol, we expected there to be a dependence on gender when evaluating types of chest pain. A possible reason for the lack of statistically significant differences could be that men are generally expected to experience cardiovascular symptoms such as chest pain more than women (SOURCE). Therefore, the true difference may lie in the likelihood of experiencing chest pain in general rather than in specific types.
+
+We also found that there was no evidence of statistically significant differences in chest pain types when tested with cholesterol levels. This is inconsistent with our hypothesis as elevated cholesterol level is a large factor in causing blockages that lead to cardiovascular disease. A possible reason behind this finding could be the large amount of cholesterol levels recorded as zero in the data, which we assumed meant no cholesterol level was recorded, so those values were filtered out. The resulting smaller sample size for cholesterol values could have impacted the expected and actual outcomes within the contingency tables, making the differences statistically insignificant. Another reason why cholesterol levels may not be significantly associated with different types of chest pain could be that they really are associated equally with all types of chest pain. More studies are necessary to pinpoint the reason why cholesterol levels had an insignificant association.
+
+There exists some limitations to our research. Though statistically significant relationships between blood pressure level, whether a patient has heart disease, and whether an angina was exercise induced, and whether a patient experienced an atypical angina or an asymptomatic angina instead of a typical angina were observed, the magnitude of these effects cannot be derived from our present analysis. Our analysis did not account for an individual's age, leaving us unaware of the ways in which age interacts with specific factors to predict angina types. Regarding gender, there was a disproportionate number of men and women, with a far greater sample size of men than women. This data is also observational; it is beyond the scope of our analysis to make causative statements regarding the relationship of blood pressure level, heart disease, and exercise level on chest pain type. A key limitation of our data analysis was that there were values of 0 in the cholesterol specific dataset, and after filtering those out, the sample size was smaller. Additionally, this was an ex post facto study, so we could not manipulate the independent variables or randomly assign the subjects to different groups. It was not revealed to us how the data were collected, so specifics such as what entails exercise in “exercise induced” and the precise dichotomy between typical and atypical angina were not clear. Analyzing the heart disease variable required a retrospective approach as this dataset was compiled from studies where heart disease was the outcome but we analyzed and drew conclusions where heart disease was a predictor. This makes it impossible to predict any cause-effect relationship, as other factors not analyzed may have had a greater influence over the type of chest pain experienced than the variables included in the study. Also, some low expected values were observed in the preliminary Chi Squared tests. The approximation therefore may not have been accurate. However, this limitation was corrected in the step down tests, as Fisher’s Exact Tests were used instead since the number of outcomes had been reduced to two, and only the step down tests were used to make conclusions regarding an existing association. 
 
 
 
