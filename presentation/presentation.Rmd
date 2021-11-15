@@ -51,59 +51,18 @@ class: inverse, middle, center
 
 
 ## Background
-.pull-left[
 - Predictors for type of chest pain
   
   - Types of chest pain: Typical Angina (TA), Atypical Angina (ATA), Asymptomatic Angina (ASY), Non-anginal Pain (NAP)
 
   
   - Predictors: Cholesterol level, Resting Blood Pressure, Exercise Induced Status, Sex, Heart Disease
-]
-
-- Use `---` to separate slides and `--` for incremental builds
-
---
-
-- Like this
 
 ---
 
-## Layouts
-
-You can use plain text
-
-- or bullet points
-
-.pull-left[
-or text in two columns $^*$
-]
-.pull-right[
-- like
-- this
-]
-
-.footnote[
-[*] And add footnotes
-]
-
----
-
-## Code
-
-```{r boring-regression}
-# a boring regression
-model <- lm(dist ~ speed, data = cars)
-tidy(model)
-glance(model)
-```
-
----
-
-## Plots
+##  Preliminary Plots
 
 ```{r recode-species, echo = FALSE, message = FALSE}
-# In this chunk I'm doing a bunch of analysis that I don't want to present 
-# in my slides. But I need the resulting data frame for a plot I want to present.
 
 heart_grouped <- heart %>%
   mutate(chol_level = cut(Cholesterol,
@@ -145,10 +104,7 @@ disease_grouped <- heart_grouped %>%
   summarize(count = n())
 ```
 
-```{r plot-penguins, echo = FALSE, warning = FALSE, message = FALSE, fig.show = "hold", out.width = "35%"}
-# Code hidden with echo = FALSE
-# Uses modified penguins dataset from previous chunk
-# Play around with height and width until you're happy with the look
+```{r plot-sex-exer-disease, echo = FALSE, warning = FALSE, message = FALSE, fig.show = "hold", out.width = "40%"}
 
 sex_grouped %>%
   mutate(sex_factor, sex_name=ifelse(sex_factor==0, "Male","Female")) %>%
@@ -168,6 +124,21 @@ exer_grouped %>%
        y = "Proportion",
        fill = "Exercise Induced Angina Status")
 
+
+disease_grouped %>%
+  mutate(HeartDisease, disease_cat=ifelse(HeartDisease==0, "Normal","Disease")) %>%
+  ggplot()+
+  geom_col(aes(x = ChestPainType, y = count, fill = as.factor(disease_cat)), position = "fill")+
+  labs(title = "Frequency of Chest Pain Type by Heart Disease",
+       x = "Chest Pain Type",
+       y = "Proportion",
+       fill = "Heart Disease Status")
+```
+
+---
+## Preliminary Plots
+
+```{r plot-restingBP-Chol, echo = FALSE, warning = FALSE, message = FALSE, fig.show = "hold", out.width = "50%"}
 RBP_grouped %>%
   ggplot()+
   geom_col(aes(x = ChestPainType, y = count, fill = as.factor(press_level)), position = "fill") +
@@ -184,14 +155,6 @@ chol_grouped %>%
        y = "Proportion",
        fill = "Cholesterol Level")
 
-disease_grouped %>%
-  mutate(HeartDisease, disease_cat=ifelse(HeartDisease==0, "Normal","Disease")) %>%
-  ggplot()+
-  geom_col(aes(x = ChestPainType, y = count, fill = as.factor(disease_cat)), position = "fill")+
-  labs(title = "Frequency of Chest Pain Type by Heart Disease",
-       x = "Chest Pain Type",
-       y = "Proportion",
-       fill = "Heart Disease Status")
 ```
 
 ---
@@ -223,7 +186,46 @@ knitr::include_graphics("Screen_Shot_T2.png")
 ```
 
 ---
+```{r grouped, echo = FALSE}
+heart_grouped4 <- heart_grouped %>%
+  filter(ChestPainType %in% c("TA", "ASY")) 
 
+heart_grouped6 <- heart_grouped %>%
+  filter(ChestPainType %in% c("ATA", "TA")) 
+```
+
+## Heart Disease Results
+```{r plot-HD, echo = FALSE, warning = FALSE, message = FALSE, fig.show = "hold", out.width = "50%"}
+heart_grouped6 %>%
+   mutate(HeartDisease, heart_factor=ifelse(HeartDisease=="1", "Heart Disease", "Normal")) %>%
+ggplot()+
+  geom_bar(mapping = aes(x = heart_factor, fill = ChestPainType), position = "fill")+
+  labs(title = "Proportion of Chest Pain Type",
+  subtitle = "By Whether the Patient Has Heart Disease", x = "Whether the Patient Has Heart Disease", y = "Proportion", fill = "Chest Pain Type")
+
+heart_grouped4 %>%
+  mutate(HeartDisease, heart_factor=ifelse(HeartDisease=="1", "Heart Disease", "Normal")) %>%
+  ggplot()+
+  geom_bar(mapping = aes(x = heart_factor, fill = ChestPainType), position = "fill")+
+  labs(title = "Proportion of Chest Pain Type",
+  subtitle = "By Whether the Patient Has Heart Disease", x = "Whether the Patient Has Heart Disease", y = "Proportion", fill = "Chest Pain Type")
+```
+
+
+---
+## Exercise and Blood Pressure Level Results
+```{r ex-bp, echo = FALSE, warning = FALSE, message = FALSE, fig.show = "hold", out.width = "50%"}
+ggplot(data = heart_grouped6)+
+  geom_bar(mapping = aes(x = press_level, fill = ChestPainType), position = "fill")+
+  labs(title = "Proportion of Chest Pain Type",
+  subtitle = "By Blood Pressure Level", x= "Blood Pressure Level", y = "Proportion", fill = "Chest Pain Type" )
+
+ggplot(data = heart_grouped4)+
+geom_bar(mapping = aes(x = as.factor(ExerciseAngina), fill = ChestPainType), position = "fill")+
+  labs(title = "Proportion of Chest Pain Type",
+  subtitle = "By Whether the Angina Was Exercise Induced", x = "Whether Angina was Exercise Induced", y = "Proportion", fill = "Chest Pain Type")
+
+```
 
 ---
 
