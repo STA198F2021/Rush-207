@@ -248,7 +248,7 @@ knitr::include_graphics("Screen_Shot_T2.png")
 
 ```
 
-According to the Fisher’s Exact step down tests, whether an angina was a typical angina (TA) or atypical angina (ATA) was significantly associated with blood pressure level (press_level; p value = 0.006839) and whether the patient had heart disease (HeartDisease; p value = 3.929e-05). Whether an angina was typical or asymptomatic (ASY) was significantly associated with whether or not the angina was exercise induced (ExerciseAngina; p value = 4.23e-10) and whether the patient had heart disease (HeartDisease; p value = 6.656e-07). 
+According to the Fisher’s Exact step down test results, shown in Table 2, whether an angina was a typical angina (TA) or atypical angina (ATA) was significantly associated with blood pressure level (press_level; p value = 0.006839) and whether the patient had heart disease (HeartDisease; p value = 3.929e-05). Whether an angina was typical or asymptomatic (ASY) was significantly associated with whether or not the angina was exercise induced (ExerciseAngina; p value = 4.23e-10) and whether the patient had heart disease (HeartDisease; p value = 6.656e-07). 
 
 ```{r graphsTA-ATA, fig.show = "hold", out.width = "50%"}
 
@@ -277,6 +277,7 @@ geom_bar(mapping = aes(x = as.factor(ExerciseAngina), fill = ChestPainType), pos
   subtitle = "By Whether the Angina Was Exercise Induced", x = "Whether Angina was Exercise Induced", y = "Proportion", fill = "Chest Pain Type")
 
 ```
+The final visuals (displaying only the statistically significant step down tests) for the TA & ATA outcomes show that the frequency of atypical anginas is greater for the elevated blood pressure and Hypertension 1 categories than normal blood pressure, and greater for the no heart disease category than heart disease category. The final visuals for the TA & ASY outcomes show that the frequency of asymptomatic anginas is greater for the heart disease category than the no heart disease category, and greater for the exercise induced angina category than the not exercise induced angina category. In order to determine the magnitude of the difference in odds between categories and whether or not those differences were significant, a logistic regression model was fit to the data.
 
 ```{r log-reg1}
 
