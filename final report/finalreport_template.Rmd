@@ -409,20 +409,19 @@ According to the data, our hypothesis that some factors would be more strongly a
 
 # References
 
-AlBadri, A., Leong, D., Bairey Merz, C. N., Wei, J., Handberg, E. M., Shufelt, C. L., Mehta, P. K., Nelson, M. D., Thomson, L. E., Berman, D. S., Shaw, L. J., Cook-Wiens, G., & Pepine, C. J. (2017). Typical angina is associated with greater coronary endothelial dysfunction but not abnormal vasodilatory reserve. Clinical cardiology, 40(10), 886–891. https://doi.org/10.1002/clc.22740
-
 Angina. (n.d.). Clevelandclinic.Org. Retrieved November 13, 2021, from https://my.clevelandclinic.org/health/diseases/21489-angina
+
+Blood Cholesterol. (n.d.). Nih.Gov. Retrieved November 15, 2021, from https://www.nhlbi.nih.gov/health-topics/blood-cholesterol
 
 Cardiovascular diseases. (n.d.). Who.Int. Retrieved November 13, 2021, from https://www.who.int/health-topics/cardiovascular-diseases
 
 CDC. (2021, September 27). Heart disease facts. Cdc.Gov. https://www.cdc.gov/heartdisease/facts.htm
 
-Constant J. The diagnosis of nonanginal chest pain. Keio J Med. 1990 Sep;39(3):187-92. doi: 10.2302/kjm.39.187. PMID: 2255129.
+LaRosa, J. C. (1990). At what levels of total low- or high-density lipoprotein cholesterol should diet/drug therapy be initiated? United States guidelines. The American Journal of Cardiology, 65(12), 7F-10F.
 
-Kenneth R. Bennett, Atypical Chest Pain—It's Time to Be Rid of It, The American Journal of Medicine, Volume 126, Issue 3, 2013, Page 191,ISSN 0002-9343, https://doi.org/10.1016/j.amjmed.2012.05.017. (https://www.sciencedirect.com/science/article/pii/S0002934312004883)
+Silent heart attack: What are the risks? (2020, April 21). Mayoclinic.Org. https://www.mayoclinic.org/diseases-conditions/heart-attack/expert-answers/silent-heart-attack/faq-20057777
 
-Loskot F, Novotny P. Die asymptomatische Myokardischämie [Asymptomatic myocardial ischemia]. Z Gesamte Inn Med. 1990 Jul 1;45(13):370-3. German. PMID: 2238747.
+The facts about high blood pressure. (n.d.). Heart.Org. Retrieved November 15, 2021, from https://www.heart.org/en/health-topics/high-blood-pressure/the-facts-about-high-blood-pressure
 
-Silent heart attack: What are the risks? (2020, April 21). Mayoclinic.Org. https://www.mayoclinic.org/diseases-conditions/heart-attack/expert-answers/silent-heart-attack/faq-20057777.
 
 
