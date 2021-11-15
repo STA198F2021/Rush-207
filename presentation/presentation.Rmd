@@ -268,8 +268,6 @@ CDC. (2021, September 27). Heart disease facts. Cdc.Gov. https://www.cdc.gov/hea
 
 Constant J. The diagnosis of nonanginal chest pain. Keio J Med. 1990 Sep;39(3):187-92. doi: 10.2302/kjm.39.187. PMID: 2255129.
 
-Kenneth R. Bennett, Atypical Chest Pain—It's Time to Be Rid of It, The American Journal of Medicine, Volume 126, Issue 3, 2013, Page 191,ISSN 0002-9343, https://doi.org/10.1016/j.amjmed.2012.05.017. (https://www.sciencedirect.com/science/article/pii/S0002934312004883)
-
 Loskot F, Novotny P. Die asymptomatische Myokardischämie [Asymptomatic myocardial ischemia]. Z Gesamte Inn Med. 1990 Jul 1;45(13):370-3. German. PMID: 2238747.
 
 Silent heart attack: What are the risks? (2020, April 21). Mayoclinic.Org. https://www.mayoclinic.org/diseases-conditions/heart-attack/expert-answers/silent-heart-attack/faq-20057777.
@@ -280,4 +278,3 @@ class: inverse, middle, center
 
 # Thank You
 
----
