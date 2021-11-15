@@ -290,6 +290,15 @@ press_fit <- logistic_reg() %>%
 tidy(press_fit, conf.int = TRUE, exponentiate = TRUE)
 
 ```
+
+For the logistic regression model for the TA & ATA outcome, the reference group for ChestPainType (the outcome variable) was “TA,” the reference group for press_level was “Normal,” and the reference group for HeartDisease was “0” (no heart disease). 
+
+With a slope estimate of 3.38, persons with elevated blood pressure had 3.38 times the odds of having an atypical angina than a typical angina. This estimate was significant, with p = 0.0415 and a confidence interval of (1.05, 11.2).
+
+There was no statistical evidence of an increase in odds of having an atypical angina versus a typical angina compared to the reference groups for persons with blood pressure in the hypertension 1 and hypertension 2 range, as the p values were 0.176 and 0.816, respectively. 
+
+With a slope estimate of 0.219, persons diagnosed with heart disease had 0.219 times the odds of having an atypical angina than a typical angina. This estimate was significant, with p = 7.68e-5 and a confidence interval of (0.102, 0.464).
+
 ```{r log-reg2}
 
 #TA = reference group
@@ -305,14 +314,6 @@ tidy(exer_fit, conf.int = TRUE, exponentiate = TRUE)
 
 
 ```
-For the logistic regression model for the TA & ATA outcome, the reference group for ChestPainType (the outcome variable) was “TA,” the reference group for press_level was “Normal,” and the reference group for HeartDisease was “0” (no heart disease). 
-
-With a slope estimate of 3.38, persons with elevated blood pressure had 3.38 times the odds of having an atypical angina than a typical angina. This estimate was significant, with p = 0.0415 and a confidence interval of (1.05, 11.2).
-
-There was no statistical evidence of an increase in odds of having an atypical angina versus a typical angina compared to the reference groups for persons with blood pressure in the hypertension 1 and hypertension 2 range, as the p values were 0.176 and 0.816, respectively. 
-
-With a slope estimate of 0.219, persons diagnosed with heart disease had 0.219 times the odds of having an atypical angina than a typical angina. This estimate was significant, with p = 7.68e-5 and a confidence interval of (0.102, 0.464).
-
 
 For the logistic regression model for the TA & ASY outcome, the reference group for ChestPainType (the outcome variable) was “TA,” the reference group for ExerciseAngina was “0” (angina wasn’t exercise induced), and the reference group for HeartDisease was “0” (no heart disease). 
 
