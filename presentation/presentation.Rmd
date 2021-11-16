@@ -254,6 +254,8 @@ tidy(exer_fit, conf.int = TRUE, exponentiate = TRUE)
 
 - Chest pain type can be predicted by healthcare professionals and patients based on certain variables
 
+- Asymptomatic Angina significance associated with past heart disease condition and exercise induced status 
+
 ---
 
 ## References

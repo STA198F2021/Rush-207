@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Presentation title</title>
+    <title>An Analysis of Predictors for Types of Chest Pain Experienced</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Team name   Names of team members" />
-    <meta name="date" content="2021-10-06" />
-    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
+    <meta name="author" content="Rush 207   Shelby Brown, Kaeden Hill, Katie Lam" />
+    <meta name="date" content="2021-11-15" />
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Presentation title
-## Presentation subtitle (if any)
-### Team name <br> Names of team members
+# An Analysis of Predictors for Types of Chest Pain Experienced
+### Rush 207 <br> Shelby Brown, Kaeden Hill, Katie Lam
 ### Duke University
-### 2021-10-06
+### 2021-11-15
 
 ---
 
@@ -29,235 +28,116 @@ class: center, middle, inverse, title-slide
 
 
 
+## Background
+- Predictors for type of chest pain
+  
+  - Types of chest pain: Typical Angina (TA), Atypical Angina (ATA), Asymptomatic Angina (ASY), Non-anginal Pain (NAP)
+
+  
+  - Predictors: Cholesterol level, Resting Blood Pressure, Exercise Induced Status, Sex, Heart Disease
+
+---
+
+##  Preliminary Plots
+
+
+
+&lt;img src="presentation_files/figure-html/plot-sex-exer-disease-1.png" width="40%" /&gt;&lt;img src="presentation_files/figure-html/plot-sex-exer-disease-2.png" width="40%" /&gt;&lt;img src="presentation_files/figure-html/plot-sex-exer-disease-3.png" width="40%" /&gt;
+
+---
+## Preliminary Plots
+
+&lt;img src="presentation_files/figure-html/plot-restingBP-Chol-1.png" width="50%" /&gt;&lt;img src="presentation_files/figure-html/plot-restingBP-Chol-2.png" width="50%" /&gt;
+
+---
+## Methods
+
+- Preliminary Chi Squared Test
+
+- Step down Fisher's Exact Tests
+
+- Logistic Regression
+
+---
+## Results
+
+&lt;img src="Screen_Shot_T1.png" width="70%" /&gt;
+
+---
+## Results
+
+&lt;img src="Screen_Shot_T2.png" width="70%" /&gt;
+
+---
+
+
+## Heart Disease Results
+&lt;img src="presentation_files/figure-html/plot-HD-1.png" width="50%" /&gt;&lt;img src="presentation_files/figure-html/plot-HD-2.png" width="50%" /&gt;
+
+
+---
+## Exercise and Blood Pressure Level Results
+&lt;img src="presentation_files/figure-html/ex-bp-1.png" width="50%" /&gt;&lt;img src="presentation_files/figure-html/ex-bp-2.png" width="50%" /&gt;
+
+---
+
+# Logistic Regression
+
+
+```
+## # A tibble: 5 × 7
+##   term                      estimate std.error statistic p.value conf.low conf.high
+##   &lt;chr&gt;                        &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+## 1 (Intercept)                  3.76      0.440     3.01  2.62e-3    1.66      9.51 
+## 2 press_levelElevated          3.38      0.597     2.04  4.15e-2    1.05     11.2  
+## 3 press_levelHypertension 1    2.27      0.605     1.35  1.76e-1    0.691     7.63 
+## 4 press_levelHypertension 2    0.889     0.506    -0.233 8.16e-1    0.317     2.35 
+## 5 HeartDisease                 0.219     0.384    -3.95  7.68e-5    0.102     0.464
+```
+
+```
+## # A tibble: 3 × 7
+##   term            estimate std.error statistic    p.value conf.low conf.high
+##   &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+## 1 (Intercept)         2.99     0.227      4.82 0.00000144     1.94      4.75
+## 2 ExerciseAnginaY     7.16     0.463      4.25 0.0000215      3.08     19.6 
+## 3 HeartDisease        2.72     0.335      2.99 0.00278        1.42      5.30
+```
+
+
+---
+
+## Conclusion and Implications
+
+
+- Chest pain type can be predicted by healthcare professionals and patients based on certain variables
+
+- Asymptomatic Angina significance associated with past heart disease condition and exercise induced status 
+
+---
+
+## References
+.small[
+AlBadri, A., Leong, D., Bairey Merz, C. N., Wei, J., Handberg, E. M., Shufelt, C. L., Mehta, P. K., Nelson, M. D., Thomson, L. E., Berman, D. S., Shaw, L. J., Cook-Wiens, G., &amp; Pepine, C. J. (2017). Typical angina is associated with greater coronary endothelial dysfunction but not abnormal vasodilatory reserve. Clinical cardiology, 40(10), 886–891. https://doi.org/10.1002/clc.22740
+
+Angina. (n.d.). Clevelandclinic.Org. Retrieved November 13, 2021, from https://my.clevelandclinic.org/health/diseases/21489-angina
+
+Cardiovascular diseases. (n.d.). Who.Int. Retrieved November 13, 2021, from https://www.who.int/health-topics/cardiovascular-diseases
+
+CDC. (2021, September 27). Heart disease facts. Cdc.Gov. https://www.cdc.gov/heartdisease/facts.htm
+
+Constant J. The diagnosis of nonanginal chest pain. Keio J Med. 1990 Sep;39(3):187-92. doi: 10.2302/kjm.39.187. PMID: 2255129.
+
+Loskot F, Novotny P. Die asymptomatische Myokardischämie [Asymptomatic myocardial ischemia]. Z Gesamte Inn Med. 1990 Jul 1;45(13):370-3. German. PMID: 2238747.
+
+Silent heart attack: What are the risks? (2020, April 21). Mayoclinic.Org. https://www.mayoclinic.org/diseases-conditions/heart-attack/expert-answers/silent-heart-attack/faq-20057777.
+]
+
+---
 class: inverse, middle, center
 
-# Using xaringan
+# Thank You
 
----
-
-## xaringan
-
-- The presentation is created using the `xaringan` package
-
-- Use `---` to separate slides and `--` for incremental builds
-
---
-
-- Like this
-
----
-
-## Layouts
-
-You can use plain text
-
-- or bullet points
-
-.pull-left[
-or text in two columns `\(^*\)`
-]
-.pull-right[
-- like
-- this
-]
-
-.footnote[
-[*] And add footnotes
-]
-
----
-
-## Code
-
-
-```r
-# a boring regression
-model &lt;- lm(dist ~ speed, data = cars)
-tidy(model)
-```
-
-```
-## # A tibble: 2 × 5
-##   term        estimate std.error statistic  p.value
-##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-## 1 (Intercept)   -17.6      6.76      -2.60 1.23e- 2
-## 2 speed           3.93     0.416      9.46 1.49e-12
-```
-
-```r
-glance(model)
-```
-
-```
-## # A tibble: 1 × 12
-##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
-##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1     0.651         0.644  15.4      89.6 1.49e-12     1  -207.  419.  425.
-## # … with 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;
-```
-
----
-
-## Plots
-
-
-
-&lt;img src="presentation_files/figure-html/plot-penguins-1.png" title="Body mass vs. flipper lenght of Palmer Penguins for species Adelie and all the others combined together. There is a relatively strong, positive relationship between the two variables. The Adelie penguins are clustered together but they don't exhibit a different trend than the rest of the penguins." alt="Body mass vs. flipper lenght of Palmer Penguins for species Adelie and all the others combined together. There is a relatively strong, positive relationship between the two variables. The Adelie penguins are clustered together but they don't exhibit a different trend than the rest of the penguins." width="70%" /&gt;
-
----
-
-## Plot and text
-
-.pull-left[
-- Some text
-- goes here
-]
-.pull-right[
-&lt;img src="presentation_files/figure-html/unnamed-chunk-1-1.png" width="100%" /&gt;
-]
-
----
-
-class: inverse, middle, center
-
-# A new section...
-
----
-
-## Tables
-
-If you want to generate a table, make sure it is in the HTML format (instead of Markdown or other formats), e.g.,
-
-&lt;table&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; species &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; island &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; bill_length_mm &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; bill_depth_mm &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; flipper_length_mm &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; body_mass_g &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; sex &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; year &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Torgersen &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 39.1 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 18.7 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 181 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 3750 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2007 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Torgersen &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 39.5 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 17.4 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 186 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 3800 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2007 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Torgersen &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 40.3 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 18.0 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 195 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 3250 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2007 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Torgersen &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2007 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Torgersen &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 36.7 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 19.3 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 193 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 3450 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2007 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Torgersen &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 39.3 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 20.6 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 190 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 3650 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2007 &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
----
-
-## Images
-
-&lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="img/watercolour_sys02_img32_percolate.jpg" alt="Image credit: Danielle Navarro, Percolate." width="40%" /&gt;
-&lt;p class="caption"&gt;Image credit: Danielle Navarro, Percolate.&lt;/p&gt;
-&lt;/div&gt;
-
-Or you can also include a full page image. See next slide.
-
----
-
-background-image: url(img/watercolour_sys02_img32_percolate.jpg)
-
----
-
-## Math Expressions
-
-You can write LaTeX math expressions inside a pair of dollar signs, e.g. &amp;#36;\alpha+\beta$ renders `\(\alpha+\beta\)`. You can use the display style with double dollar signs:
-
-```
-$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
-```
-
-`$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$`
-
-Limitations:
-
-1. The source code of a LaTeX math expression must be in one line, unless it is inside a pair of double dollar signs, in which case the starting `$$` must appear in the very beginning of a line, followed immediately by a non-space character, and the ending `$$` must be at the end of a line, led by a non-space character;
-
-1. There should not be spaces after the opening `$` or before the closing `$`.
-
-1. Math does not work on the title slide (see [#61](https://github.com/yihui/xaringan/issues/61) for a workaround).
-
----
-
-class: inverse, middle, center
-
-# Wrap up
-
----
-
-## Feeling adventurous?
-
-- Want to find out more about `xaringan`? See https://slides.yihui.name/xaringan/#1.
-
-- You are welcomed to use the default styling of the slides. In fact, that's what I expect majority of you will do. You will differentiate yourself with the content of your presentation.
-
-- But some of you might want to play around with slide styling. The 
-`xaringanthemer` provides some solutions for this that: https://pkg.garrickadenbuie.com/xaringanthemer.
-
-- And if you want more bells and whistles, there is also `xaringanExtra`: https://pkg.garrickadenbuie.com/xaringanExtra.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
